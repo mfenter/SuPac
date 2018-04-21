@@ -4,6 +4,9 @@
 .idea/
 manage.py
 venv/
+.DS_Store
+db.sqlite3
+
 
 Github has a great boilerplate .gitignore
 
