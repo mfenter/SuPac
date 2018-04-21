@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# DJANGO-REGISTRATION-REDUX SETTINGS
+ACCOUNT_ACTIVATION_DAYS = 1
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
