@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.urls import path, include
 
-from .views import Index
+from .views import Index, CelestialBodyView
 
 urlpatterns = [
-    path('', Index.as_view(), name="inventory-index")
+    path('', Index.as_view(), name="inventory-index"),
+    path('celestial_body/<str:name>', CelestialBodyView.as_view(), name="celestial_body_view")
 ]
