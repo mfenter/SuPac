@@ -23,3 +23,4 @@ class Plot(models.Model):
     location = models.CharField(max_length=140)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=500, null=True, blank=True)
+    price = models.IntegerField(default=25)
