@@ -5,6 +5,7 @@
 venv/
 .DS_Store
 db.sqlite3
+inventory/migrations/
 
 
 Github has a great boilerplate .gitignore
