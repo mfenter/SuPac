@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'inventory',
+    'inventory.apps.InventoryConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
