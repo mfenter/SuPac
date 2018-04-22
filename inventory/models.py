@@ -22,4 +22,4 @@ class Plot(models.Model):
     parent = models.ForeignKey(CelestialBody, on_delete=models.PROTECT)
     location = models.CharField(max_length=140)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, null=True, blank=True)
