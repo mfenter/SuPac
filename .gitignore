@@ -2,7 +2,6 @@
 
 # User choice ignores
 .idea/
-manage.py
 venv/
 .DS_Store
 db.sqlite3
