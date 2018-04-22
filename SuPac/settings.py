@@ -39,10 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
-# DJANGO-REGISTRATION-REDUX SETTINGS
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# REGISTRATION-REDUX SETTINGS
 ACCOUNT_ACTIVATION_DAYS = 1
+REGISTRATION_EMAIL_SUBJECT_PREFIX = '[Django reg test app]'
+SEND_ACTIVATION_EMAIL = True
+REGISTRATION_AUTO_LOGIN = False
 
 
 
@@ -126,3 +132,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# UPGRADE LOGIN REDIRECT FROM 'ACCOUNTS/PROFILE' TO THE ROOT DIR '/'
+LOGIN_REDIRECT_URL = '/'
+
+
+# SETTING FOR DJANGO SITES MODULE
+SITE_ID = 1
