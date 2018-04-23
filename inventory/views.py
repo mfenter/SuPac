@@ -47,10 +47,19 @@ class PlotView(View):
     def get(self, request, name):
         plot = Plot.objects.get(name=name)
 
-        return HttpResponse(f'''
-            <div>
-                <h1><u>{plot.name}</u></h1>
-                <h3>{plot.owner}</h3>
-                <p>{plot.description}</p>
-            </div
-        ''')
+        if plot.owner:
+            return HttpResponse(f'''
+                <div>
+                    <h1><u>{plot.name}</u></h1>
+                    <h3>{plot.owner}</h3>
+                    <p>{plot.description}</p>
+                </div
+            ''')
+        else:
+            return HttpResponse(f'''
+                            <div>
+                                <h1><u>{plot.name}</u></h1>
+                                <h3><a href="/merchant/process_card/">Buy this plot</a></h3>
+                                <p>{plot.description}</p>
+                            </div
+                        ''')
