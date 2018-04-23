@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('registration.backends.default.urls'), name='accounts'),
     path('inventory/', include('inventory.urls'), name='inventory'),
     path('cart/', include('cart.urls'), name='cart'),
+    path('merchant/', include('merchant.urls'), name='merchant'),
     path('', Index.as_view(), name="home")
 ]
