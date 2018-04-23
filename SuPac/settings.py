@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # EMAIL SETTINGS
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'hotmale776@gmail.com'
+# TODO: HIDE THIS BETTER POSSIBLY ENV
 EMAIL_HOST_PASSWORD = 'wzziwrwidhagtper'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'inventory.apps.InventoryConfig',
+    'cart.apps.CartConfig',
+    'carton'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -147,8 +150,12 @@ STATIC_URL = '/static/'
 
 
 # UPGRADE LOGIN REDIRECT FROM 'ACCOUNTS/PROFILE' TO THE ROOT DIR '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/inventory'
 
 
 # SETTING FOR DJANGO SITES MODULE
 SITE_ID = 1
+
+
+# CART SETTING
+CART_PRODUCT_MODEL = 'inventory.models.Plot'

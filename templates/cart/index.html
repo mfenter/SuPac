@@ -1,0 +1,16 @@
+{% load carton_tags %}
+{% get_cart as my_cart %}
+
+<div>
+{% for item in my_cart.items %}
+    <h1>{{ item.product.name }}</h1>
+    <p>Quantity: {{ item.quantity }}</p>
+    <p>Subtotal: {{ item.subtotal }}</p>
+    <br/>
+{% endfor %}
+    <h4>Total: {{ my_cart.total }}</h4>
+{% if my_cart.items %}
+    <p><a href="/cart/clear">Remove Everything</a></p>
+{% endif %}
+    <p><a href="/inventory">Go back to inventory</a></p>
+</div>
