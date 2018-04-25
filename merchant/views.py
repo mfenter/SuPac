@@ -13,7 +13,7 @@ from .process_card import process_card
 
 class PaymentFormView(View):
 
-    def get(self):
+    def get(self, request):
         try:
             print(settings.BASE_DIR)
             with open(os.path.join(settings.BASE_DIR, "merchant/public/", "process_card_form.html")) as f:
