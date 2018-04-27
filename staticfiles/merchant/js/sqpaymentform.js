@@ -1,8 +1,8 @@
 // Set the application ID
-var applicationId = "REPLACE_ME";
+var applicationId = "sandbox-sq0idp-2QAGysWIAp5XWGGmDZEQTw";
 
 // Set the location ID
-var locationId = "REPLACE_ME";
+var locationId = "CBASEDgGKGlB43Ujea2w14XFUcAgAQ";
 
 /*
  * function: requestCardNonce
@@ -115,12 +115,12 @@ var paymentForm = new SqPaymentForm({
           },
           {
             label: "Shipping",
-            amount: "{{REPLACE_ME}}",
+            amount: "0",
             pending: true,
           },
           {
             label: "Tax",
-            amount: "{{REPLACE_ME}}",
+            amount: "0",
             pending: false,
           }
         ]
