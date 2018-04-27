@@ -57,7 +57,6 @@ class ProcessCardView(View):
             if type(res) == Exception:
                 return HttpResponse('There was an issue with processing. Check your card details and try again.')
             else:
-                # TODO: Assign user as owner of plots and empty cart
                 for product in cart.products:
                     plot = Plot.objects.get(name=product.name)
                     plot.owner = request.user
@@ -69,6 +68,7 @@ class ProcessCardView(View):
                 return HttpResponse(f'''
                 <h1>Thanks for your investment!</h1>
                 <p>Transaction id: {res.id}</p>
+                <p><a href="/inventory/">Get More Real Estate!</a></p>
                 ''')
 
         return redirect('/merchant/')

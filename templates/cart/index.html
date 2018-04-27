@@ -11,6 +11,7 @@
     <h4>Total: {{ my_cart.total }}</h4>
 {% if my_cart.items %}
     <p><a href="/cart/clear">Remove Everything</a></p>
+    <p><a href="{% url 'payment-form' %}">Prepare for blast off!</a></p>
 {% endif %}
     <p><a href="/inventory">Go back to inventory</a></p>
 </div>
