@@ -150,6 +150,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# WHERE COLLECTSTATIC WILL PUT FILES
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # UPGRADE LOGIN REDIRECT FROM 'ACCOUNTS/PROFILE' TO THE ROOT DIR '/'
 LOGIN_REDIRECT_URL = '/inventory'

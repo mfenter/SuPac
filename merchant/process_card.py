@@ -8,11 +8,14 @@ from squareconnect.apis.transactions_api import TransactionsApi
 # from squareconnect.apis.locations_api import LocationsApi
 
 
-def process_card():
+def process_card(nonce, total):
         # Create instance of FieldStorage
         form = cgi.FieldStorage()
         # Get data from fields
-        nonce = form.getvalue('nonce')
+
+        total = (int(total) * 100)
+
+        print(nonce, total)
 
         # The access token to use in all Connect API requests. Use your *sandbox* access
         # token if you're just testing things out.
@@ -22,7 +25,9 @@ def process_card():
         api_instance = TransactionsApi()
 
         idempotency_key = str(uuid.uuid1())
-        amount = {'amount': 100, 'currency': 'USD'}
+
+        # Amount represented in lowest unit possible i.e pennies
+        amount = {'amount': total, 'currency': 'USD'}
         body = {'idempotency_key': idempotency_key, 'card_nonce': nonce, 'amount_money': amount}
 
         # The SDK throws an exception if a Connect endpoint responds with anything besides
@@ -31,7 +36,8 @@ def process_card():
             api_response = api_instance.charge(location_id, body)
             res = api_response.transaction
         except ApiException as e:
-            res = "Exception when calling TransactionApi->charge: {}".format(e)
+            # res = "Exception when calling TransactionApi->charge: {}".format(e)
+            return e
 
         # Display the result
         print('Content-type:text/html\r\n\r\n')
