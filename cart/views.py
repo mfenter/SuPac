@@ -58,16 +58,28 @@ class ClearCartView(View):
 
 
 class CartIndexView(View):
+    title = "SuPac - Cart Page"
+    template = 'index.html'
+    component = "cart"
 
     def get(self, request):
+
         if request.user.is_authenticated:
-            template = 'cart/index.html'
-            context = dict()
+            self.title = f"SuPac - {request.user.name}'s Cart"
+
+            props = {
+                'component': self.component
+            }
+
+            context = {
+                'title': self.title,
+                'props': props
+            }
 
             cart = Cart(request.session)
 
             context['cart'] = cart.items
-            return render(request, template, context)
+            return render(request, self.template, context)
         else:
             return HttpResponse("this is the cart")
 
