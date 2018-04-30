@@ -13,34 +13,30 @@ from carton.cart import Cart
 
 from .process_card import process_card
 
-# Create your views here.
-
 
 class PaymentFormView(View):
+    title = "SuPac - Payment Form"
+    template = 'index.html'
+    component = 'payment-form'
 
     def get(self, request):
-        template_name = "merchant/process_card_form.html"
-        context = {}
-
         cart = Cart(request.session)
-
         amount = 0
 
         if cart.total > 0:
-            amount = cart.total
+            amount = float(cart.total)
 
-        context['amount'] = amount
+        props = {
+            'component': self.component,
+            'amount': amount
+        }
 
-        return render(request, template_name, context)
+        context = {
+            'title': self.title,
+            'props': props,
+        }
 
-        # try:
-        #     print(settings.BASE_DIR)
-        #     with open(os.path.join(settings.BASE_DIR, "merchant/public/", "process_card_form.html")) as f:
-        #         return HttpResponse(f.read())
-        #
-        # except FileNotFoundError:
-        #     logging.exception("index file not found")
-        #     return HttpResponse('<h1>Not the right merchant page</h1>', status=501)
+        return render(request, self.template, context)
 
 
 class ProcessCardView(View):
@@ -64,6 +60,7 @@ class ProcessCardView(View):
                     print(plot.owner)
 
                 cart.clear()
+                print(res)
 
                 return HttpResponse(f'''
                 <h1>Thanks for your investment!</h1>

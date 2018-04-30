@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -40,6 +42,7 @@ EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'SuPac',
     'django.contrib.sites',
     'registration',
     'django.contrib.admin',
@@ -84,7 +87,7 @@ ROOT_URLCONF = 'SuPac.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(REACT_APP_DIR, 'build')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -151,7 +154,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
 )
 
 # WHERE COLLECTSTATIC WILL PUT FILES
@@ -159,7 +162,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # UPGRADE LOGIN REDIRECT FROM 'ACCOUNTS/PROFILE' TO THE ROOT DIR '/'
-LOGIN_REDIRECT_URL = '/inventory'
+LOGIN_REDIRECT_URL = '/inventory/'
 
 
 # SETTING FOR DJANGO SITES MODULE
