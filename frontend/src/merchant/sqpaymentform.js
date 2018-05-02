@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // Set the application ID
 let applicationId = "sandbox-sq0idp-2QAGysWIAp5XWGGmDZEQTw";
 
@@ -14,6 +16,8 @@ let locationId = "CBASEDgGKGlB43Ujea2w14XFUcAgAQ";
  * wish to take additional action when the form button is clicked.
  */
 
+let paymentForm = null;
+
 
 function requestCardNonce(event) {
 
@@ -26,7 +30,10 @@ function requestCardNonce(event) {
 
 // Create and initialize a payment form object
 
-let paymentForm = new window.SqPaymentForm({
+function createPaymentForm() {
+	$.getScript("https://js.squareup.com/v2/paymentform").done(function() {
+
+		paymentForm = new window.SqPaymentForm({
 
 		// Initialize the payment form elements
 		applicationId: applicationId,
@@ -203,4 +210,10 @@ let paymentForm = new window.SqPaymentForm({
   }
 });
 
-export { paymentForm, requestCardNonce }
+		paymentForm.build();
+	})
+}
+
+
+
+export { createPaymentForm, requestCardNonce }
