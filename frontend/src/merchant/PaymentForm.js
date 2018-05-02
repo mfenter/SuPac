@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import CSRFToken from './csrftoken';
 import './sqpaymentform.css';
-import { paymentForm, requestCardNonce } from "./sqpaymentform";
+import { createPaymentForm, requestCardNonce } from "./sqpaymentform";
 
 
 class PaymentForm extends Component {
 
     componentWillMount = () => {
+        createPaymentForm();
         console.log("Payment form mounted");
     };
 
@@ -83,7 +84,7 @@ class PaymentForm extends Component {
                                               className="cc-amount">{ this.props.amount }</span></p>
             </div>
         );
-    }
+    };
 }
 
 

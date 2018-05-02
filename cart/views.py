@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import View
 
@@ -65,10 +65,21 @@ class CartIndexView(View):
     def get(self, request):
 
         if request.user.is_authenticated:
-            self.title = f"SuPac - {request.user.name}'s Cart"
+            self.title = f"SuPac - {request.user.username}'s Cart"
+
+            cart = Cart(request.session)
+
+            items = []
+
+            for item in cart.items:
+                items.append({'name': item.product.name, 'quantity': item.quantity, 'subtotal': float(item.subtotal)})
+
+            total = float(cart.total)
 
             props = {
-                'component': self.component
+                'component': self.component,
+                'items': items,
+                'total': total
             }
 
             context = {
@@ -76,11 +87,6 @@ class CartIndexView(View):
                 'props': props
             }
 
-            cart = Cart(request.session)
-
-            context['cart'] = cart.items
             return render(request, self.template, context)
         else:
             return HttpResponse("this is the cart")
-
-

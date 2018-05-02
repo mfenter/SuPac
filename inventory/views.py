@@ -10,6 +10,9 @@ from inventory.models import CelestialBody, Plot
 
 
 class Index(View):
+    title = "SuPac - Celestial Real Estate"
+    template = "index.html"
+    component = "inventory-index"
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -17,14 +20,29 @@ class Index(View):
             body_list = []
 
             for body in primary_bodies:
-                body_list.append(f'<a href="/inventory/celestial_body/{body.name}">{body.name}</a><br/>')
+                body_list.append(body.name)
+                # body_list.append(f'<a href="/inventory/celestial_body/{body.name}">{body.name}</a><br/>')
 
-            return HttpResponse(body_list)
+            props = {
+                "component": self.component,
+                "body_list": body_list,
+                "plot_list": []
+            }
+
+            context = {
+                "title": self.title,
+                "props": props
+            }
+
+            return render(request, self.template, context)
         else:
             return redirect('/')
 
 
 class CelestialBodyView(View):
+    title = "Supac - Celestial Body View"
+    template = "index.html"
+    component = "celestial_body_view"
 
     def get(self, request, name):
         # grab celestial body from request
@@ -36,15 +54,26 @@ class CelestialBodyView(View):
         plot_list = []
 
         for body in celestial_bodies:
-            body_list.append(f'<a href="/inventory/celestial_body/{body.name}">{body.name}</a><br/>')
+            body_list.append(body.name)
 
         for plot in plots:
-            plot_list.append(f'<a href="/inventory/celestial_body/plots/{plot.name}">{plot.name}</a><br/>')
+            plot_list.append(plot.name)
 
-        response = HttpResponse()
-        response.writelines(body_list)
-        response.writelines(plot_list)
-        return response
+        props = {
+            "component": self.component,
+            "body_list": body_list,
+            "plot_list": plot_list
+        }
+
+        context = {
+            "title": self.title,
+            "props": props
+        }
+
+        # response = HttpResponse()
+        # response.writelines(body_list)
+        # response.writelines(plot_list)
+        return render(request, self.template, context)
 
 
 class PlotView(View):

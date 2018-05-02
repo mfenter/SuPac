@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 import logo from '../logo.svg';
 import './App.css';
 
-import PaymentForm from '../merchant/PaymentForm'
+import PaymentForm from '../merchant/PaymentForm';
+import Cart from '../cart/Cart';
+import InventoryIndex from '../inventory/Inventory'
 
 class App extends Component {
 
     render() {
         console.log(this.props); //for test purposes
+
         let component = this.props.component;
+
         if (component == 'home') {
             return (
                 <div>
@@ -21,8 +25,20 @@ class App extends Component {
 
         if (component == 'payment-form') {
             return (
-                <PaymentForm amount={this.props.amount}/>
+                <PaymentForm amount={this.props.amount} />
             );
+        }
+
+        if (component == 'cart') {
+            return (
+                <Cart items={this.props.items} total={this.props.total} />
+            )
+        }
+
+        if(component == 'inventory-index' || component == "celestial_body_view"){
+            return (
+                <InventoryIndex body_list={this.props.body_list} plot_list={this.props.plot_list} />
+            )
         } else {
             return (
                 <p>Not the right route</p>
