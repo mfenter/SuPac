@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import logo from '../logo.svg';
 import './App.css';
 
+import Header from '../components/Header';
 import PaymentForm from '../merchant/PaymentForm';
 import Cart from '../cart/Cart';
 import InventoryIndex from '../inventory/Inventory'
@@ -16,6 +16,7 @@ class App extends Component {
         if (component == 'home') {
             return (
                 <div>
+                    <Header/>
                     <h1> This is the main index</h1>
                     <p><a href="/accounts/login/">Login</a></p>
                     <p><a href="/accounts/register/">Register</a></p>

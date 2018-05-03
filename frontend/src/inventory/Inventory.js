@@ -22,6 +22,16 @@ class BodyList extends Component {
 
 class InventoryIndex extends Component {
 
+    _bodyListRender() {
+        return (
+            this.props.body_list.map(function (body) {
+                    return <div><BodyList body={body}/><br/></div>
+                }
+            )
+
+        )
+    }
+
     _plotListRender() {
         return (
             this.props.plot_list.map(function (plot) {
@@ -34,14 +44,8 @@ class InventoryIndex extends Component {
     render() {
         return (
             <div>
-                {this.props.body_list.map(function (body) {
-                    return <div><BodyList body={body}/><br/></div>
-                })}
-
-                <br/>
-
+                {this._bodyListRender()}
                 {this._plotListRender()}
-
             </div>
         )
     };
