@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Grid } from 'react-bootstrap';
+// TODO: ADD LINK FROM REACT ROUTER TO NAVITEMS
 
 import  logo  from '../logo.svg';
 
