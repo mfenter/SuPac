@@ -16,6 +16,10 @@ class CartItem extends Component {
 
 class Cart extends Component {
 
+    componentWillMount() {
+        console.log(this.props)
+    }
+
     _showLinks() {
         if (this.props.items.length > 0) {
             return (
