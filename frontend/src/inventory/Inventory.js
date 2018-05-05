@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
+import cartSocket from './websocket';
+
 class PlotView extends Component {
-    constructor() {
+    constructor(props) {
         super();
 
         this.state = {
@@ -15,28 +17,72 @@ class PlotView extends Component {
                 "inCart": true
             })
         }
+
+        this.cs = cartSocket(this.props.user);
     }
+
+    _addLink(plotName) {
+        let addHref = `/cart/add/${plotName}`;
+        return (
+            <p><a href={addHref} onClick={(e) => this._pivotLinks(e)}>Buy this interstellar Land</a></p>
+        )
+    }
+
+    _removeLink(plotName) {
+        let remHref = `/cart/remove/${plotName}`;
+        return (
+            <p><a href={remHref} onClick={(e) => this._pivotLinks(e)}>Remove {plotName} from cart</a></p>
+        )
+    }
+
+    _pivotLinks = (e) => {
+        e.preventDefault();
+
+        //  Put item in cart and change link state
+
+        let plotName = this.props.name;
+
+        this.cs.send(JSON.stringify({
+            'message': plotName
+        }));
+
+        if (this.state.inCart) {
+            console.log("set to false");
+            this.setState({
+                "inCart": false
+            })
+        } else {
+            console.log("set to true");
+            this.setState({
+                "inCart": true
+            })
+        }
+
+    };
 
     render() {
         console.log(this.props);
         let plot = this.props;
         let plotName = plot.name;
-        let addHref = `/cart/add/${plotName}`;
-        let remHref = `/cart/remove/${plotName}`;
-        return(
-             <div>
-                 <h1><u>{plotName}</u></h1>
 
-                 {( !plot.owner && !this.state.inCart
-                     ? <p><a href={addHref} onClick={ () => this.setState({ "inCart": true }) }>Buy this interstellar Land</a></p>
-                     : <h3>{plot.owner}</h3> )}
 
-                 {( this.state.inCart
-                     ? <p><a href={remHref} onClick={ () => this.setState({ "inCart": false }) }>Remove {plotName} from cart</a></p>
-                     : () => {} )}
+        return (
+            <div>
+                <h1><u>{plotName}</u></h1>
 
-                 <p>{plot.desc}</p>
-             </div>
+                {(!plot.owner
+                    ? "No owner"
+                    : <h3>{plot.owner}</h3>)}
+
+                <div>
+                    {(this.state.inCart
+                        ? this._removeLink(plotName)
+                        : this._addLink(plotName))}
+                </div>
+
+
+                <p>{plot.desc}</p>
+            </div>
         )
     }
 }
@@ -93,4 +139,4 @@ class InventoryIndex extends Component {
     };
 }
 
-export { InventoryIndex, PlotView }
+export {InventoryIndex, PlotView}
