@@ -3,25 +3,8 @@ from django.http import HttpResponse
 from django.views.generic import View
 
 from carton.cart import Cart
-from inventory.models import Plot
 
-
-def add_to_cart(cart, name):
-    qty = 1
-    plot = Plot.objects.get(name=name)
-
-    if cart.products.__contains__(plot):
-        return cart
-    else:
-        cart.add(plot, price=plot.price, quantity=qty)
-
-    return cart
-
-
-def remove_from_cart(cart, name):
-    plot = Plot.objects.get(name=name)
-    cart.remove(plot)
-    return cart
+from .cart_util import add_to_cart, remove_from_cart
 
 
 class AddToCartView(View):
@@ -66,6 +49,8 @@ class CartIndexView(View):
 
         if request.user.is_authenticated:
             self.title = f"SuPac - {request.user.username}'s Cart"
+
+            print(request.session.session_key)
 
             cart = Cart(request.session)
 

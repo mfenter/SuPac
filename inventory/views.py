@@ -1,12 +1,11 @@
+import json
+
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views.generic import View
 
 from carton.cart import Cart
 
 from inventory.models import CelestialBody, Plot
-
-# Create your views here.
 
 
 class Index(View):
@@ -23,7 +22,6 @@ class Index(View):
 
             for body in primary_bodies:
                 body_list.append(body.name)
-                # body_list.append(f'<a href="/inventory/celestial_body/{body.name}">{body.name}</a><br/>')
 
             props = {
                 "component": self.component,
@@ -87,45 +85,35 @@ class PlotView(View):
 
     def get(self, request, name):
 
-        cart = Cart(request.session)
+        if request.user.is_authenticated:
+            cart = Cart(request.session)
 
-        in_cart = False
+            in_cart = False
+            owner = None
 
-        try:
-            plot = Plot.objects.get(name=name)
-            if cart.__contains__(plot):
-                in_cart = True
-        except Plot.DoesNotExist:
-            return redirect('/inventory/')
+            try:
+                plot = Plot.objects.get(name=name)
+                if cart.__contains__(plot):
+                    in_cart = True
+            except Plot.DoesNotExist:
+                return redirect('/inventory/')
 
+            owner = plot.owner.username if plot.owner else json.dumps(None)
+            user = request.user.username if request.user else json.dumps(None)
 
+            props = {
+                "name": plot.name,
+                "owner": owner,
+                "desc": plot.description,
+                "in_cart": in_cart,
+                "user": user
+            }
 
-        # response = HttpResponse(f'''
-        #     <div>
-        #         <h1><u>{plot.name}</u></h1>
-        #         <h3>{plot.owner}</h3>
-        #         <p>{plot.description}</p>
-        #     </div>
-        # ''')
+            context = {
+                "title": self.title,
+                "props": props
+            }
 
-        # if plot.owner is None and cart.products.__contains__(plot) is False:
-        #     response.writelines(f"<p><a href='/cart/add/{plot.name}'>Buy this interstellar Land</a></p>\n")
-        #
-        # if cart.products.__contains__(plot):
-        #     response.writelines(f'''
-        #         <p><a href='/cart/remove/{plot.name}'>Remove {plot.name} from cart</a></p>\n
-        #     ''')
-
-        props = {
-            "name": plot.name,
-            "owner": plot.owner.username,
-            "desc": plot.description,
-            "in_cart": in_cart
-        }
-
-        context = {
-            "title": self.title,
-            "props": props
-        }
-
-        return render(request, self.template, context)
+            return render(request, self.template, context)
+        else:
+            return redirect('/')

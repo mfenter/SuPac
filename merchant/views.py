@@ -20,23 +20,27 @@ class PaymentFormView(View):
     component = 'payment-form'
 
     def get(self, request):
-        cart = Cart(request.session)
-        amount = 0
+        if request.user.is_authenticated:
+            cart = Cart(request.session)
+            amount = 0
 
-        if cart.total > 0:
-            amount = float(cart.total)
+            if cart.total > 0:
+                amount = float(cart.total)
 
-        props = {
-            'component': self.component,
-            'amount': amount
-        }
+            props = {
+                'component': self.component,
+                'amount': amount,
+                'user': request.user.username
+            }
 
-        context = {
-            'title': self.title,
-            'props': props,
-        }
+            context = {
+                'title': self.title,
+                'props': props,
+            }
 
-        return render(request, self.template, context)
+            return render(request, self.template, context)
+        else:
+            redirect('/')
 
 
 class ProcessCardView(View):
