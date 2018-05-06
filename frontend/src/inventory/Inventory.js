@@ -16,6 +16,7 @@ class PlotView extends Component {
                 "inCart": true
             })
         }
+
     }
 
     _addLink(plotName) {
