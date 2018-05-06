@@ -42,6 +42,7 @@ EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'SuPac',
     'django.contrib.sites',
     'registration',
@@ -103,6 +104,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SuPac.wsgi.application'
 
+ASGI_APPLICATION = 'SuPac.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
