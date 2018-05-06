@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 
-import cartSocket from './websocket';
 
 class PlotView extends Component {
-    constructor(props) {
+    constructor() {
         super();
 
         this.state = {
@@ -17,42 +16,40 @@ class PlotView extends Component {
                 "inCart": true
             })
         }
-
-        this.cs = cartSocket(this.props.user);
     }
 
     _addLink(plotName) {
         let addHref = `/cart/add/${plotName}`;
         return (
-            <p><a href={addHref} onClick={(e) => this._pivotLinks(e)}>Buy this interstellar Land</a></p>
+            <p><a href={addHref} onClick={(e) => this._pivotLinks(e, "add", plotName)}>Buy this interstellar Land</a>
+            </p>
         )
     }
 
     _removeLink(plotName) {
         let remHref = `/cart/remove/${plotName}`;
         return (
-            <p><a href={remHref} onClick={(e) => this._pivotLinks(e)}>Remove {plotName} from cart</a></p>
+            <p><a href={remHref} onClick={(e) => this._pivotLinks(e, "remove", plotName)}>Remove {plotName} from
+                cart</a></p>
         )
     }
 
-    _pivotLinks = (e) => {
+    _pivotLinks = (e, action, plotName) => {
         e.preventDefault();
 
-        //  Put item in cart and change link state
+        //  Put item in cart and update app state
+        // let plotName = this.props.name;
 
-        let plotName = this.props.name;
+        // TODO: Needs to call parent function setting state; which gets passed to header
 
-        this.cs.send(JSON.stringify({
-            'message': plotName
-        }));
+        this.props.updateCart(action, plotName);
 
+        // Set state of plot in cart
         if (this.state.inCart) {
-            console.log("set to false");
             this.setState({
                 "inCart": false
             })
         } else {
-            console.log("set to true");
             this.setState({
                 "inCart": true
             })
@@ -70,15 +67,13 @@ class PlotView extends Component {
             <div>
                 <h1><u>{plotName}</u></h1>
 
-                {(!plot.owner
-                    ? "No owner"
+                {(plot.owner === "null"
+                    ? <div>
+                        {(this.state.inCart
+                            ? this._removeLink(plotName)
+                            : this._addLink(plotName))}
+                      </div>
                     : <h3>{plot.owner}</h3>)}
-
-                <div>
-                    {(this.state.inCart
-                        ? this._removeLink(plotName)
-                        : this._addLink(plotName))}
-                </div>
 
 
                 <p>{plot.desc}</p>

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import CSRFToken from './csrftoken';
 import './sqpaymentform.css';
-import { createPaymentForm, requestCardNonce } from "./sqpaymentform";
+import { createPaymentForm, requestCardNonce, buildPaymentForm } from "./sqpaymentform";
 
 
 class PaymentForm extends Component {
 
-    componentWillMount = () => {
+    componentWillMount() {
         createPaymentForm();
         console.log("Payment form mounted");
     };
@@ -15,6 +15,11 @@ class PaymentForm extends Component {
        // Don't submit the form until SqPaymentForm returns with a nonce
         requestCardNonce(event);
     };
+
+    componentDidUpdate() {
+        buildPaymentForm()
+
+    }
 
     render() {
         return (
