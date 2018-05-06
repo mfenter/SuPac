@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import View
@@ -61,10 +63,13 @@ class CartIndexView(View):
 
             total = float(cart.total)
 
+            user = request.user.username if request.user else json.dumps(None)
+
             props = {
                 'component': self.component,
                 'items': items,
-                'total': total
+                'total': total,
+                'user': user
             }
 
             context = {

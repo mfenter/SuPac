@@ -39,13 +39,11 @@ class App extends Component {
 
     componentDidMount() {
         console.log(this.props);
-        if (this.props.user !== "undefined") {
+        if (this.props.user != false) {
             this.cs = createCartSocket(this.props.user);
         }
 
         let selfie = this;
-
-        console.log(this.cs.readyState);
 
         //TODO: Maybe try to do this.cs.onconnect = func here instead of timeout
         setTimeout(function () {
@@ -60,8 +58,7 @@ class App extends Component {
                     "quantity": qty
                 });
             };
-            console.log(selfie.cs.readyState);
-        }, 300);
+        }, 500);
     }
 
     updateCart = (action, plotName) => {

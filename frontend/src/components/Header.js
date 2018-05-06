@@ -30,6 +30,7 @@ class Header extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <Navbar fluid inverse>
@@ -50,14 +51,14 @@ class Header extends Component {
                                 </NavItem>
                             </Nav>
                             <Nav pullRight>
-                            {(this.props.user !== "null"
-                                    ?   <NavItem eventKey={1} href="/cart/">
+                            {(this.props.user != false
+                                    ?   (<NavItem eventKey={1} href="/cart/">
                                             {this.state.quantity} <Glyphicon glyph="shopping-cart"/>
-                                        </NavItem>
+                                        </NavItem>)
 
-                                    :   <NavItem eventKey={1} href="/accounts/login/">
+                                    :   (<NavItem eventKey={1} href="/accounts/login/">
                                             Login
-                                        </NavItem>
+                                        </NavItem>)
                             )}
                             </Nav>
                         </Navbar.Collapse>
