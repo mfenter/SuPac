@@ -1,0 +1,11 @@
+.media-container {
+    padding: 2%;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 3%/20%;
+
+}
+
+.list-img {
+    border-radius: 50%;
+}

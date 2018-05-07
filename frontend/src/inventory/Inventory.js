@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import {Grid, Row, Media} from 'react-bootstrap';
 
+import './inventory.css'
+
+import thumbnail from '../logo.svg';
 
 class PlotView extends Component {
     constructor() {
@@ -73,7 +77,7 @@ class PlotView extends Component {
                         {(this.state.inCart
                             ? this._removeLink(plotName)
                             : this._addLink(plotName))}
-                      </div>
+                    </div>
                     : <h3>{plot.owner}</h3>)}
 
 
@@ -86,9 +90,19 @@ class PlotView extends Component {
 class PlotList extends Component {
     render() {
         let plot = this.props.plot;
-        let href = `/inventory/celestial_body/plots/${plot}`;
+        let href = `/inventory/celestial_body/plots/${plot.name}`;
         return (
-            <a href={href}>{plot}</a>
+            <Media className="media-container">
+                <Media.Left>
+                    <img width={64} height={64} src={thumbnail} alt="thumbnail"/>
+                </Media.Left>
+                <Media.Body>
+                    <Media.Heading><a href={href}>Plot: {plot.name}</a></Media.Heading>
+                    <p>
+                        {plot.desc}
+                    </p>
+                </Media.Body>
+            </Media>
         )
     }
 }
@@ -97,8 +111,27 @@ class BodyList extends Component {
     render() {
         let body = this.props.body;
         let href = `/inventory/celestial_body/${body}`;
+
+        let imageName = `${body}.jpeg`;
+        // let image = import(imageName).then(module => {
+        //     console.log(module);
+        // });
+
         return (
-            <a href={href}>{body}</a>
+            <Media className="media-container">
+                <Media.Left align="middle">
+                    <img className="list-img" width={64} height={64} src={require(`../images/body/${imageName}`)} alt="thumbnail"/>
+                </Media.Left>
+                <Media.Body>
+                    <Media.Heading><a href={href}>{body}</a></Media.Heading>
+                    <p>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                        ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
+                        tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                        fringilla. Donec lacinia congue felis in faucibus.
+                    </p>
+                </Media.Body>
+            </Media>
         )
     }
 }
@@ -107,8 +140,9 @@ class InventoryIndex extends Component {
 
     _bodyListRender() {
         return (
+
             this.props.body_list.map(function (body) {
-                    return <div><BodyList body={body}/><br/></div>
+                    return <BodyList body={body}/>
                 }
             )
 
@@ -117,22 +151,36 @@ class InventoryIndex extends Component {
 
     _plotListRender() {
         return (
+
             this.props.plot_list.map(function (plot) {
-                    return <div><PlotList plot={plot}/><br/></div>
+                    return <PlotList plot={plot}/>
                 }
             )
         )
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.props);
         return (
-            <div>
-                {this._bodyListRender()}
-                {this._plotListRender()}
-            </div>
+            <Grid>
+                <Row>
+                    {this._bodyListRender()}
+                    {this._plotListRender()}
+                </Row>
+            </Grid>
         )
     };
 }
 
 export {InventoryIndex, PlotView}
+
+
+//
+// {/*<div>*/
+// }
+// {/*{this._bodyListRender()}*/
+// }
+// {/*{this._plotListRender()}*/
+// }
+// {/*</div>*/
+// }

@@ -60,7 +60,7 @@ class CelestialBodyView(View):
         try:
             plots = Plot.objects.filter(parent__name=name)
             for plot in plots:
-                plot_list.append(plot.name)
+                plot_list.append({ "name": plot.name, "desc": plot.description})
         except Plot.DoesNotExist:
             pass
 
