@@ -64,7 +64,6 @@ class ProcessCardView(View):
                     print(plot.owner)
 
                 cart.clear()
-                print(res)
 
                 return HttpResponse(f'''
                 <h1>Thanks for your investment!</h1>
