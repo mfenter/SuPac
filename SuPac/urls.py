@@ -26,5 +26,4 @@ urlpatterns = [
     path('cart/', include('cart.urls'), name='cart'),
     path('merchant/', include('merchant.urls'), name='merchant'),
     re_path('.*', Index.as_view(), name='home')
-    # path('', Index.as_view(), name="home")
 ]
