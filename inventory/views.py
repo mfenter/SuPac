@@ -9,7 +9,7 @@ from inventory.models import CelestialBody, Plot
 
 
 class Index(View):
-    title = "SuPac - Celestial Real Estate"
+    title = "core - Celestial Real Estate"
     template = "index.html"
     component = "inventory-index"
 

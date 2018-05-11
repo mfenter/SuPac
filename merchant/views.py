@@ -15,7 +15,7 @@ from .process_card import process_card
 
 
 class PaymentFormView(View):
-    title = "SuPac - Payment Form"
+    title = "core - Payment Form"
     template = 'index.html'
     component = 'payment-form'
 

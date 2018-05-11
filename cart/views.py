@@ -43,14 +43,14 @@ class ClearCartView(View):
 
 
 class CartIndexView(View):
-    title = "SuPac - Cart Page"
+    title = "core - Cart Page"
     template = 'index.html'
     component = "cart"
 
     def get(self, request):
 
         if request.user.is_authenticated:
-            self.title = f"SuPac - {request.user.username}'s Cart"
+            self.title = f"core - {request.user.username}'s Cart"
 
             print(request.session.session_key)
 
