@@ -2,14 +2,25 @@
 
 
 
-### Square SDK Python Install
+### WARNING!!!
 
-"You must use the following repo to properly install square"
+The django-carton package is out of date. To deal with that I forked the
+github repo into https://github.com/Daniel-Avila/django-carton.git.
 
-``$: pip install git+https://github.com/square/connect-python-sdk.git
-``
+You will need to remove the current django-carton install
 
+ `pip uninstal django-carton`
 
+ and rerun
+
+`pip install -r requirments.txt`
+
+To install the corrected version of django-carton.
+
+I put in a pull request from our fork to the connonical project in the event
+they want to update it.
+
+#### NOTE: Disregard the following. It is being left for reference.
 'In site-packages under the carton modules template tag folder
 you must replace line 25 to:'
 
