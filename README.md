@@ -40,3 +40,9 @@ where the manage.py script lives.  Cd into that directory, and run the following
 Next cd into the directory named 'frontend', and run the following command:
 
 `npm run build`
+
+Now you need to create an admin user from the command line.  Cd into the project directory, and type:
+
+`python manage.py createsuperuser`
+
+and follow the directions.
