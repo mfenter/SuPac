@@ -46,3 +46,7 @@ Now you need to create an admin user from the command line.  Cd into the project
 `python manage.py createsuperuser`
 
 and follow the directions.
+
+Once the super user has been created, while still in the project directory type:
+
+'python manage.py migrate --run-syncdb'
