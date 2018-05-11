@@ -7,7 +7,11 @@
 The django-carton package is out of date. To deal with that I forked the
 github repo into https://github.com/Daniel-Avila/django-carton.git.
 
-You will need to remove the current django-carton install and rerun
+You will need to remove the current django-carton install
+
+ `pip uninstal django-carton`
+
+ and rerun
 
 `pip install -r requirments.txt`
 
