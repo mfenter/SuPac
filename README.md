@@ -26,3 +26,9 @@ you must replace line 25 to:'
 
 '...in order to use carton tags correctly in django templates.'
 
+###  NPM
+
+after running 'python manage.py migrate'
+you must run 'npm run build'  
+
+
