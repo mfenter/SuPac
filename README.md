@@ -26,9 +26,17 @@ you must replace line 25 to:'
 
 '...in order to use carton tags correctly in django templates.'
 
-###  NPM
+###  NPM and Node requirements
+    node 8.11.1
+    npm  5.6.0 
 
-after running 'python manage.py migrate'
-you must run 'npm run build'  
+###  Getting up and running
 
+In order to get up and running, you have to run the python migrations from the project directory
+where the manage.py script lives.  Cd into that directory, and run the following command: 
 
+`python manage.py migrate`
+
+Next cd into the directory named 'frontend', and run the following command:
+
+`npm run build`
