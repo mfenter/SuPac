@@ -32,6 +32,8 @@ def process_card(nonce, total):
 
         # The SDK throws an exception if a Connect endpoint responds with anything besides
         # a 200-level HTTP code. This block catches any exceptions that occur from the request.
+        # TODO This needs to be a simple raw call to api_instance.charge and be allowed to throw an exception that
+        # is caught in the view
         try:
             api_response = api_instance.charge(location_id, body)
             res = api_response.transaction

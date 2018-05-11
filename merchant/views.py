@@ -54,7 +54,10 @@ class ProcessCardView(View):
 
         if nonce is not None:
             res = process_card(nonce, total)
-            if type(res) == Exception:
+            # TODO: This should not be checking the type. We should wrap "process_card" into a try/except. If there
+            # is an exception log it and then return the HttpResponse.
+
+            if type(res) == Exception:  # NOTE: This won't even work. if we wanted to do this we should use isinstance
                 return HttpResponse('There was an issue with processing. Check your card details and try again.')
             else:
                 for product in cart.products:
