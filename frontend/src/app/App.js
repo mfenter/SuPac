@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import PaymentForm from '../merchant/PaymentForm';
 import Cart from '../cart/Cart';
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
@@ -97,6 +98,7 @@ class App extends Component {
                            render={() => <PlotView {...this.props} updateCart={this.updateCart}
                                                    qty={this.state.quantity}/>}/>
                     <Route path="/merchant/" render={() => <PaymentForm amount={this.props.amount}/>}/>
+                    <Footer />
                 </div>
             </Router>
         )
