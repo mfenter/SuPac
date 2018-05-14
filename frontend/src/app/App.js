@@ -10,6 +10,7 @@ import Cart from '../cart/Cart';
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
 
 import createCartSocket from './websocket';
+import LoginForm from "../components/LoginForm";
 
 
 class Home extends Component {
@@ -98,6 +99,7 @@ class App extends Component {
                            render={() => <PlotView {...this.props} updateCart={this.updateCart}
                                                    qty={this.state.quantity}/>}/>
                     <Route path="/merchant/" render={() => <PaymentForm amount={this.props.amount}/>}/>
+                    <Route path="/login/" render={() => <LoginForm/>}/>
                     <Footer />
                 </div>
             </Router>
