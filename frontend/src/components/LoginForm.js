@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-
+import DjangoCSRFToken from 'django-react-csrftoken';
 
 function FieldGroup({id, label, help, ...props}) {
     return (
@@ -25,7 +25,8 @@ class LoginForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <form>
+                        <form action={'/accounts/login/'} method={'post'}>
+                            <DjangoCSRFToken/>
                             <FieldGroup
                                 id="formControlsText"
                                 type="text"
@@ -37,14 +38,11 @@ class LoginForm extends Component {
                                 type="password"
                                 label="Password"
                             />
+                            <Button type="submit" bsStyle="primary">Submit</Button>
                         </form>
 
                     </Row>
-                    <Row>
-                        <Col xsOffset={4} xs={12}>
-                        <Button type="submit" bsStyle="primary">Submit</Button>
-                        </Col>
-                    </Row>
+
                     <Row>
                         <Col xsOffset={4} xs={12}>
                         <Link to='/register/'>Register</Link>
