@@ -12,7 +12,7 @@ import {InventoryIndex, PlotView} from '../inventory/Inventory'
 import createCartSocket from './websocket';
 import LoginForm from "../components/LoginForm";
 import LandingHero from "../components/HeroJumboTron";
-
+import Auth from "./auth";
 
 class Home extends Component {
     render() {
@@ -27,6 +27,14 @@ class Home extends Component {
     }
 }
 
+function requireAuth(nextState, replace) {
+    if (!Auth.loggedIn()) {
+        replace({
+            pathname:'/app/login/',
+            state: {nextPathname: '/app/'}
+        })
+    }
+}
 
 
 class App extends Component {
@@ -90,7 +98,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Header quantity={this.state.quantity} user={this.props.user}/>
-                    <Route exact path="/" render={() => <Home user={this.props.user}/>}/>
+                    <Route exact path="/" onEnter={requireAuth} render={() => <Home user={this.props.user}/>}/>
                     <Route path="/cart/" render={() => <Cart items={this.props.items} total={this.props.total}/>}/>
                     <Route exact path="/inventory/" render={() => <InventoryIndex body_list={this.props.body_list}
                                                                                   plot_list={this.props.plot_list}/>}/>
