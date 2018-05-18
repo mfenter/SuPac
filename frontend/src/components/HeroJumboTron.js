@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import {Col, Jumbotron, Row, Grid} from 'react-bootstrap';
-import { createContentSocket } from '../app/websocket';
+
 
 class LandingHero extends Component {
-
-    componentDidMount(){
-        this.socket = createContentSocket(this.props.user, window.location.pathname)
-
-    }
 
     render() {
         return (

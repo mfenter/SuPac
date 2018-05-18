@@ -10,6 +10,6 @@ function createCartSocket(cartUsername) {
 
     return cartSocket
 
-}
+};
 
-export default createCartSocket
+export default createCartSocket;

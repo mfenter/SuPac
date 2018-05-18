@@ -9,7 +9,7 @@ import PaymentForm from '../merchant/PaymentForm';
 import Cart from '../cart/Cart';
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
 
-import { createCartSocket } from './websocket';
+import createCartSocket from './websocket';
 import LoginForm from "../components/LoginForm";
 import LandingHero from "../components/HeroJumboTron";
 
