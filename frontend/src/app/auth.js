@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 function loggedIn(){
     return !!localStorage.getItem('loginToken');
 }
@@ -31,3 +30,4 @@ function siteLogout() {
 
 export default siteLogin
 export { loggedIn, siteLogout }
+
