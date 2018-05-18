@@ -9,8 +9,9 @@ import PaymentForm from '../merchant/PaymentForm';
 import Cart from '../cart/Cart';
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
 
-import createCartSocket from './websocket';
+import { createCartSocket } from './websocket';
 import LoginForm from "../components/LoginForm";
+import LandingHero from "../components/HeroJumboTron";
 
 
 class Home extends Component {
@@ -20,10 +21,12 @@ class Home extends Component {
                 <h1> This is the main</h1>
                 <p><a href="/accounts/login/">Login</a></p>
                 <p><a href="/accounts/register/">Register</a></p>
+                <LandingHero user={this.props.user}/>
             </div>
         )
     }
 }
+
 
 
 class App extends Component {
@@ -40,7 +43,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.user != false) {
             this.cs = createCartSocket(this.props.user);
         }
@@ -88,7 +90,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Header quantity={this.state.quantity} user={this.props.user}/>
-                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/" render={() => <Home user={this.props.user}/>}/>
                     <Route path="/cart/" render={() => <Cart items={this.props.items} total={this.props.total}/>}/>
                     <Route exact path="/inventory/" render={() => <InventoryIndex body_list={this.props.body_list}
                                                                                   plot_list={this.props.plot_list}/>}/>

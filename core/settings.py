@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
     'cart.apps.CartConfig',
     'carton',
-    'merchant.apps.MerchantConfig'
+    'merchant.apps.MerchantConfig',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

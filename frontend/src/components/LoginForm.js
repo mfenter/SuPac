@@ -52,13 +52,6 @@ class LoginForm extends Component {
                     </Row>
                 </Col>
             </Grid>
-            // Standard Page Header
-            // Page Title Section
-            // Username field component
-            // Password component
-            // Submit button
-            // Register Link
-            // Standard Footer
         )
     }
 }
