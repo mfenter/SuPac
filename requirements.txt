@@ -11,6 +11,7 @@ daphne==2.1.1
 Django==2.0.4
 django-crispy-forms==1.7.2
 django-registration-redux==2.4
+djangorestframework==3.8.2
 html5lib==1.0.1
 hyperlink==18.0.0
 idna==2.6
