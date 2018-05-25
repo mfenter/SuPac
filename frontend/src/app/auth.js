@@ -26,6 +26,8 @@ function siteLogin(username, pass, component, dest){
 function siteLogout() {
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('loginToken');
+
+
 }
 
 export default siteLogin
