@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {Navbar, Nav, NavItem, Grid, Glyphicon } from 'react-bootstrap';
 // TODO: ADD LINK FROM REACT ROUTER TO NAVITEMS
 
-import { siteLogout } from '../app/auth';
+import {loggedIn, siteLogout} from '../app/auth';
 import logo from '../logo.svg';
 
 class Header extends Component {
@@ -59,7 +59,7 @@ class Header extends Component {
                                 </NavItem>
                             </Nav>
                             <Nav bsStyle="pills" pullRight>
-                            {(this.props.user != false
+                            {(loggedIn()
                                     ?   ([<NavItem eventKey={1} href="/cart/">
                                             {this.state.quantity} <Glyphicon glyph="shopping-cart"/>
                                         </NavItem>,
