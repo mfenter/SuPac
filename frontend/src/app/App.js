@@ -16,7 +16,6 @@ import Dashboard from "../components/Dashboard";
 import PrivateRoute from "../components/PrivateRoute";
 
 
-
 class App extends Component {
     constructor() {
         super();
@@ -79,7 +78,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Header quantity={this.state.quantity} user={this.props.user}/>
-                    <Route exact path="/" onEnter={requireAuth} render={() => <Home user={this.props.user}/>}/>
+                    <Route exact path="/" render={() => <Home user={this.props.user}/>}/>
                     <Route path="/cart/" render={() => <Cart items={this.props.items} total={this.props.total}/>}/>
                     <Route exact path="/inventory/" render={() => <InventoryIndex body_list={this.props.body_list}
                                                                                   plot_list={this.props.plot_list}/>}/>

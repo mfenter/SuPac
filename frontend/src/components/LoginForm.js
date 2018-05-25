@@ -14,7 +14,9 @@ function FieldGroup({id, label, help, ...props}) {
     );
 }
 
+
 class LocalForm extends Component {
+
     constructor() {
         super();
         this.state = {

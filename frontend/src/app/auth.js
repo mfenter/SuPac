@@ -30,4 +30,3 @@ function siteLogout() {
 
 export default siteLogin
 export { loggedIn, siteLogout }
-
