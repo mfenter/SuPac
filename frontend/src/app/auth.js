@@ -1,30 +1,37 @@
-class Auth {
-    login(username, pass, cb) {
-        if (localStorage.token) {
-            if (cb) cb(true)
-            return
-        }
-        this.getToken(username, pass, (res) => {
-            if (res.authenticated) {
-                localStorage.token = res.token
-                if (cb) cb(true)
-            } else {
-                if (cb) cb(false)
-            }
-        })
-    }
+import axios from 'axios';
 
-    logout() {
-        delete localStorage.token
-    }
 
-    loggedIn() {
-        return !!localStorage.token
-    }
-
-    getToken(username, pass, cb) {
-
-    }
+function loggedIn(){
+    return !!localStorage.loginToken
 }
 
-export default Auth
+function getToken(username, pass){
+    axios.post("/api/obtain-auth-token/",
+        { username: username,
+            password: pass
+        }
+    ).then( (response) => {
+        localStorage.setItem('loginToken', response.data.token)
+    }).catch( (error) => {
+        console.log(error)
+    })
+
+
+}
+
+function siteLogin(username, pass){
+    if (username === undefined || pass === undefined){
+        return loggedIn()
+    }
+    getToken(username, pass);
+    return loggedIn();
+}
+
+function siteLogout(){
+    console.log("auth.logout called");
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('loginToken');
+}
+
+export default siteLogin
+export { loggedIn, siteLogout }

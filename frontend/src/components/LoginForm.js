@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Button, Col, ControlLabel, FormControl, FormGroup, Form, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
+import {Link, withRouter} from 'react-router-dom';
+import siteLogin from '../app/auth'
+
 
 function FieldGroup({id, label, help, ...props}) {
     return (
@@ -14,6 +16,32 @@ function FieldGroup({id, label, help, ...props}) {
 }
 
 class LoginForm extends Component {
+    constructor() {
+        super();
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    onLoginSubmit = (e) => {
+        e.preventDefault();
+        const username = this.state.username;
+        const pass = this.state.password;
+        const result = siteLogin(username, pass);
+        if (!result) {
+            // style front end with failure
+        } else {
+            localStorage.setItem('loggedIn', true);
+            this.props.history.push('/dashboard/');
+        }
+    };
+
+    onChange = (e) => {
+        const state = this.state;
+        state[e.target.name] = e.target.value;
+        this.setState(state);
+    };
 
     render() {
         return (
@@ -25,24 +53,33 @@ class LoginForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <form action={'/accounts/login/'} method={'post'}>
+                        <Form >
                             <DjangoCSRFToken/>
                             <FieldGroup
                                 id="formControlsText"
+                                name="username"
+                                value={this.state.username}
                                 type="text"
                                 label="User Name"
                                 placeholder="Enter User Name"
+                                onChange={this.onChange}
                             />
                             <FieldGroup
                                 id="formControlPassword"
+                                value={this.state.password}
+                                name="password"
                                 type="password"
                                 label="Password"
+                                onChange={this.onChange}
                             />
-                            <Button type="submit" bsStyle="primary">Submit</Button>
-                        </form>
+                            <Row>
+                            <Col xsOffset={4}>
+                            <Button type="submit" onClick={this.onLoginSubmit} bsStyle="primary">Submit</Button>
+                            </Col>
+                            </Row>
+                        </Form>
 
                     </Row>
-
                     <Row>
                         <Col xsOffset={4} xs={12}>
                         <Link to='/register/'>Register</Link>
@@ -54,4 +91,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm
+export default withRouter(LoginForm)
