@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Col, ControlLabel, FormControl, FormGroup, Form, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import {Link, withRouter} from 'react-router-dom';
-import siteLogin from '../app/auth'
+import siteLogin, {loggedIn} from '../app/auth'
 
 
 function FieldGroup({id, label, help, ...props}) {
@@ -28,11 +28,11 @@ class LoginForm extends Component {
         e.preventDefault();
         const username = this.state.username;
         const pass = this.state.password;
-        const result = siteLogin(username, pass);
+        let result = siteLogin(username, pass, this, '/dashboard/');
         if (!result) {
-            // style front end with failure
+            console.log(result)// style front end with failure
         } else {
-            localStorage.setItem('loggedIn', true);
+
             this.props.history.push('/dashboard/');
         }
     };
@@ -42,7 +42,6 @@ class LoginForm extends Component {
         state[e.target.name] = e.target.value;
         this.setState(state);
     };
-
     render() {
         return (
             <Grid>
