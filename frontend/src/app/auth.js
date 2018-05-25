@@ -31,6 +31,8 @@ function siteLogout(){
     console.log("auth.logout called");
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('loginToken');
+
+
 }
 
 export default siteLogin

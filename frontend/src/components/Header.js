@@ -3,7 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {Navbar, Nav, NavItem, Grid, Glyphicon } from 'react-bootstrap';
 // TODO: ADD LINK FROM REACT ROUTER TO NAVITEMS
 
-import siteLogout from '../app/auth';
+import { siteLogout } from '../app/auth';
 import logo from '../logo.svg';
 
 class Header extends Component {
@@ -31,7 +31,7 @@ class Header extends Component {
         // console.log(this.state.quantity)
     }
 
-    siteLogout(what){
+    _siteLogout(what){
         console.log("this.logout called")
         siteLogout();
         what.props.history.push('/login/');
@@ -58,14 +58,14 @@ class Header extends Component {
                                     Inventory
                                 </NavItem>
                             </Nav>
-                            <Nav pullRight>
+                            <Nav bsStyle="pills" pullRight>
                             {(this.props.user != false
-                                    ?   (<NavItem eventKey={1} href="/cart/">
+                                    ?   ([<NavItem eventKey={1} href="/cart/">
                                             {this.state.quantity} <Glyphicon glyph="shopping-cart"/>
                                         </NavItem>,
                                         <NavItem>
-                                            <a onClick={() => this.siteLogout(this)}>logout</a>
-                                        </NavItem>
+                                            <a onClick={() => this._siteLogout(this)}>logout</a>
+                                        </NavItem>]
                                         )
 
                                     :   (<NavItem eventKey={1} href="/login/">
