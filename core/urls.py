@@ -24,5 +24,6 @@ urlpatterns = [
     path('inventory/', include('inventory.urls'), name='inventory'),
     path('cart/', include('cart.urls'), name='cart'),
     path('merchant/', include('merchant.urls'), name='merchant'),
-    re_path('', Index.as_view(), name="home")
+    path('api/', include('api.urls'), name='api'),
+    re_path('', Index.as_view(), name='home'),
 ]

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 import './App.css';
 
@@ -7,26 +7,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PaymentForm from '../merchant/PaymentForm';
 import Cart from '../cart/Cart';
+import Home from '../components/Home';
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
 
 import createCartSocket from './websocket';
 import LoginForm from "../components/LoginForm";
-import LandingHero from "../components/HeroJumboTron";
-
-
-class Home extends Component {
-    render() {
-        return (
-            <div>
-                <h1> This is the main</h1>
-                <p><a href="/accounts/login/">Login</a></p>
-                <p><a href="/accounts/register/">Register</a></p>
-                <LandingHero user={this.props.user}/>
-            </div>
-        )
-    }
-}
-
+import Dashboard from "../components/Dashboard";
+import PrivateRoute from "../components/PrivateRoute";
 
 
 class App extends Component {
@@ -85,6 +72,7 @@ class App extends Component {
         };
     };
 
+
     render() {
         return (
             <Router>
@@ -101,13 +89,13 @@ class App extends Component {
                            render={() => <PlotView {...this.props} updateCart={this.updateCart}
                                                    qty={this.state.quantity}/>}/>
                     <Route path="/merchant/" render={() => <PaymentForm amount={this.props.amount}/>}/>
-                    <Route path="/login/" render={() => <LoginForm/>}/>
+                    <PrivateRoute path="/dashboard/" component={Dashboard}/>
+                    <Route path="/login/" render={() =>  <LoginForm />}/>
                     <Footer />
                 </div>
             </Router>
         )
     }
 }
-
 
 export default App;
