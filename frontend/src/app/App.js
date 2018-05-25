@@ -90,7 +90,7 @@ class App extends Component {
                                                    qty={this.state.quantity}/>}/>
                     <Route path="/merchant/" render={() => <PaymentForm amount={this.props.amount}/>}/>
                     <PrivateRoute path="/dashboard/" component={Dashboard}/>
-                    <Route path="/login/" component={LoginForm} />
+                    <Route path="/login/" render={() =>  <LoginForm />}/>
                     <Footer />
                 </div>
             </Router>
