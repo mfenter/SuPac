@@ -74,6 +74,8 @@ class LocalForm extends Component {
     }
 }
 
+LocalForm = withRouter(LocalForm)
+
 class CenterView extends Component {
     render() {
         return (
