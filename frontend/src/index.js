@@ -1,12 +1,16 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
+import Root from './containers/Root';
+
 import App from './app/App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App {...window.props}/>,
+ReactDOM.render(<Root/>,
     window.react_mount,
 );
 registerServiceWorker();
