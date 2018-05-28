@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
 import Root from './containers/Root';
 
-import App from './app/App';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<Root/>,
