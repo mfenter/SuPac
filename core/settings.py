@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'carton',
     'merchant.apps.MerchantConfig',
     'rest_framework',
-    'rest_framework.authtoken',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -178,7 +177,8 @@ CART_PRODUCT_MODEL = 'inventory.models.Plot'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSIONS_CLASSES':
+        ('rest_framework.permissions.IsAuthenticated')
 }
