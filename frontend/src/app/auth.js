@@ -20,7 +20,7 @@ function getToken(username, pass, component, dest){
     let data = {username: username, password: pass};
     axios.all([axios.post("/api/login/", data)])
         .then( response => {
-            sessionStorage.setItem('ff_loggedIn', 'true')
+            sessionStorage.setItem('ff_loggedIn', 'true');
             component.props.history.push(dest)
         })
         .catch( (error) => {console.log(error)})
@@ -36,7 +36,7 @@ function siteLogin(username, pass, component, dest){
 }
 
 function siteLogout() {
-    localStorage.removeItem('ff_loggedIn');
+    sessionStorage.removeItem('ff_loggedIn');
 }
 
 export default siteLogin
