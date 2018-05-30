@@ -15,9 +15,6 @@ function getCSRFToken(path) {
         });
 }
 
-function FooPage(){
-    axios.get('/api/foo/')
-}
 
 function getToken(username, pass, component, dest){
     let data = {username: username, password: pass};

@@ -5,6 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
 from rest_framework.compat import authenticate
 from rest_framework.response import Response
+from rest_framework.urls import logout
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
@@ -43,8 +44,7 @@ class FFLoginView(APIView):
         return Response({'status': 'false', 'message': 'user not found'}, status=404)
 
 
-class FFLogoutView(LogoutView):
+class FFLogoutView(APIView):
 
-    @method_decorator(ensure_csrf_cookie)
-    def dispatch(self, request, *args, **kwargs):
-        return super(FFLogoutView, self).dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        logout(request)
