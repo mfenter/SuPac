@@ -28,9 +28,10 @@ function isLoggedInHelper(
         case RECEIVE_LOGIN:
             return Object.assign({}, state, {
                 isFetching: false,
+                loggedIn: true,
                 didInvalidate: false,
                 username: action.username,
-                fullName: action.fullname,
+                fullName: action.fullName,
                 lastUpdated: Date.now()
             })
         default:

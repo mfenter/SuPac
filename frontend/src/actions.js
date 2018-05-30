@@ -4,37 +4,34 @@ export const INVALIDATE_LOGIN = 'INVALIDATE_LOGIN'
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 
-export function invalidateLogin(username) {
+export function invalidateLogin() {
     return {
-        type: INVALIDATE_LOGIN,
-        username
+        type: INVALIDATE_LOGIN
     }
 }
 
-function requestLogin(username, password) {
+function requestLogin() {
     return {
-        type: REQUEST_LOGIN,
-        username,
-        password
+        type: REQUEST_LOGIN
     }
 }
 
 function receiveLogin(json) {
     return {
         type: RECEIVE_LOGIN,
-        username: json.data.username,
-        fullName: json.data.fullname
+        username: json.username,
+        fullName: json.fullname
     }
 }
 
 export function fetchLogin(username, password) {
     return dispatch => {
-        dispatch(requestLogin(username, password))
-        return axios.post('/api/login', {
+        dispatch(requestLogin())
+        return axios.post('/api/login/', {
             username,
             password
         })
-            .then(response => response.json())
+            .then(response => response.data)
             .then(json => dispatch(receiveLogin(json)))
     }
 }

@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import {Link, withRouter} from 'react-router-dom';
-import siteLogin, {getCSRFToken} from '../app/auth'
+import {getCSRFToken} from '../app/auth'
 
+
+import {connect} from 'react-redux';
+import {invalidateLogin, fetchLogin} from "../actions";
 
 function FieldGroup({id, label, help, ...props}) {
     return (
@@ -32,13 +35,8 @@ class LocalForm extends Component {
         e.preventDefault();
         const username = this.state.username;
         const pass = this.state.password;
-        let result = siteLogin(username, pass, this, '/dashboard/');
-        if (!result) {
-            console.log(result)// style front end with failure
-        } else {
-
-            this.props.history.push('/dashboard/');
-        }
+        this.props.dispatch(invalidateLogin());
+        this.props.dispatch(fetchLogin(username, pass))
     };
 
     onChange = (e) => {
@@ -79,7 +77,8 @@ class LocalForm extends Component {
     }
 }
 
-LocalForm = withRouter(LocalForm)
+LocalForm = connect()(LocalForm);
+LocalForm = withRouter(LocalForm);
 
 class CenterView extends Component {
     render() {
