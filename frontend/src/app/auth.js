@@ -1,14 +1,29 @@
 import axios from 'axios';
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 function loggedIn(){
     return !!localStorage.getItem('loginToken');
 }
 
+
+function getCSRFToken(path) {
+    axios.all([axios.get(path)])
+        .then( response => {
+            console.log(response[0]);
+        });
+}
+
+function FooPage(){
+    axios.get('/api/foo/')
+}
+
 function getToken(username, pass, component, dest){
     let data = {username: username, password: pass};
-    axios.all([axios.post("/api/obtain-auth-token/", data)])
+    axios.all([axios.post("/api/login/", data)])
         .then( response => {
-            localStorage.setItem('loginToken', response[0].data.token);
+
             component.props.history.push(dest)
         })
         .catch( (error) => {console.log(error)})
@@ -26,9 +41,13 @@ function siteLogin(username, pass, component, dest){
 function siteLogout() {
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('loginToken');
+    axios.all([axios.get("/api/logout/")])
+        .then( response => {
+
+        });
 
 
 }
 
 export default siteLogin
-export { loggedIn, siteLogout }
+export { loggedIn, siteLogout, getCSRFToken }

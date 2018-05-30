@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import {Link, withRouter} from 'react-router-dom';
-import siteLogin from '../app/auth'
+import siteLogin, {getCSRFToken} from '../app/auth'
 
 
 function FieldGroup({id, label, help, ...props}) {
@@ -24,6 +24,9 @@ class LocalForm extends Component {
             password: ''
         }
     }
+    onComponentDidMount = () => {
+        getCSRFToken("/api/login/");
+    };
 
     onLoginSubmit = (e) => {
         e.preventDefault();
