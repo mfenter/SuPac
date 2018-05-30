@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
@@ -39,8 +39,9 @@ class LoginView(APIView):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return Response({'status': 'true', 'username': user.username, 'fullname': user.get_full_name()},
+                resp = Response({'status': 'true', 'username': user.username, 'fullname': user.get_full_name()},
                             status=200)
+                return resp
         return Response({'status': 'false', 'message': 'user not found'}, status=404)
 
 
@@ -48,3 +49,4 @@ class LogoutView(APIView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        return Response({'loggedout': 'true'})

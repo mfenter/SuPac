@@ -4,7 +4,7 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 function loggedIn(){
-    return !!localStorage.getItem('loginToken');
+    return !!sessionStorage.getItem('ff_loggedIn');
 }
 
 
@@ -20,7 +20,7 @@ function getToken(username, pass, component, dest){
     let data = {username: username, password: pass};
     axios.all([axios.post("/api/login/", data)])
         .then( response => {
-
+            sessionStorage.setItem('ff_loggedIn', 'true')
             component.props.history.push(dest)
         })
         .catch( (error) => {console.log(error)})
@@ -36,14 +36,7 @@ function siteLogin(username, pass, component, dest){
 }
 
 function siteLogout() {
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('loginToken');
-    axios.all([axios.get("/api/logout/")])
-        .then( response => {
-
-        });
-
-
+    localStorage.removeItem('ff_loggedIn');
 }
 
 export default siteLogin
