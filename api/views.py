@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return super(UserViewSet, self).retrieve(request, pk)
 
 
-class FFLoginView(APIView):
+class LoginView(APIView):
 
     @method_decorator(ensure_csrf_cookie)
     def get(self, request, *args, **kwargs):
@@ -44,7 +44,7 @@ class FFLoginView(APIView):
         return Response({'status': 'false', 'message': 'user not found'}, status=404)
 
 
-class FFLogoutView(APIView):
+class LogoutView(APIView):
 
     def get(self, request, *args, **kwargs):
         logout(request)

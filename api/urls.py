@@ -3,7 +3,7 @@ from django.urls import path
 
 from rest_framework.routers import DefaultRouter
 
-from .views import UserViewSet, FFLoginView, FFLogoutView, FooPage
+from .views import UserViewSet, LoginView, LogoutView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -11,6 +11,6 @@ router.register(r'users', UserViewSet)
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('login/', FFLoginView.as_view(), name='login'),
-    path('logout/', FFLogoutView.as_view(), name='logout'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
