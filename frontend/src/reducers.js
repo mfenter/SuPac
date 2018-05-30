@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-function isLoggedIn(state = 'false', action) {
+function isLoggedIn(state = false, action) {
     switch (action.type) {
         default:
             return state
