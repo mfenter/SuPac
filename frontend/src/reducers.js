@@ -1,7 +1,51 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 
-function isLoggedIn(state = false, action) {
+import {
+    INVALIDATE_LOGIN,
+    RECEIVE_LOGIN,
+    REQUEST_LOGIN
+} from "./actions";
+
+
+function isLoggedInHelper(
+    state = {
+        isFetching: false,
+        didInvalidate: false,
+        loggedIn: false
+    },
+    action
+) {
     switch (action.type) {
+        case INVALIDATE_LOGIN:
+            return Object.assign({}, state, {
+                didInvalidate: true
+            })
+        case REQUEST_LOGIN:
+            return Object.assign({}, state, {
+                isFetching: true,
+                didInvalidate: false
+            })
+        case RECEIVE_LOGIN:
+            return Object.assign({}, state, {
+                isFetching: false,
+                didInvalidate: false,
+                username: action.username,
+                fullName: action.fullname,
+                lastUpdated: Date.now()
+            })
+        default:
+            return state
+    }
+}
+
+function isLoggedIn(state = {}, action) {
+    switch (action.type) {
+        case INVALIDATE_LOGIN:
+        case RECEIVE_LOGIN:
+        case REQUEST_LOGIN:
+            return Object.assign({}, state, {
+                isLoggedIn: isLoggedInHelper(state[isLoggedIn], action)
+            })
         default:
             return state
     }
