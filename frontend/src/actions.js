@@ -5,7 +5,7 @@ export const REQUEST_LOGIN = 'REQUEST_LOGIN'
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 export const LOGOUT = 'LOGOUT'
 
-export function logout() {
+function logout() {
     return {
         type: LOGOUT
     }
@@ -37,5 +37,12 @@ export function fetchLogin(username, password, dest, hist) {
         return axios.all([axios.post("/api/login/", {username, password})])
             .then(response => response[0].data)
             .then(json => dispatch(receiveLogin(json)))
+    }
+}
+
+export function doLogout() {
+    return dispatch => {
+        return axios.get('/api/logout/')
+            .then(dispatch(logout()))
     }
 }

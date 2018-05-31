@@ -7,7 +7,7 @@ import {loggedIn, siteLogout} from '../app/auth';
 import logo from '../logo.svg';
 
 import { connect } from 'react-redux'
-import { logout } from '../actions'
+import { doLogout } from '../actions'
 
 class Header extends Component {
     constructor() {
@@ -36,7 +36,7 @@ class Header extends Component {
 
     _siteLogout = (e) => {
         e.preventDefault()
-        this.props.dispatch(logout())
+        this.props.dispatch(doLogout())
         this.props.history.push('/login/')
     }
 
