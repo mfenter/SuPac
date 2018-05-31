@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 
 import {
+    LOGOUT,
     INVALIDATE_LOGIN,
     RECEIVE_LOGIN,
     REQUEST_LOGIN
@@ -16,6 +17,12 @@ function isLoggedInHelper(
     action
 ) {
     switch (action.type) {
+        case LOGOUT:
+            return Object.assign({}, state, {
+                loggedIn: false,
+                username: undefined,
+                fullName: undefined
+            })
         case INVALIDATE_LOGIN:
             return Object.assign({}, state, {
                 didInvalidate: true
@@ -41,6 +48,7 @@ function isLoggedInHelper(
 
 function isLoggedIn(state = {}, action) {
     switch (action.type) {
+        case LOGOUT:
         case INVALIDATE_LOGIN:
         case RECEIVE_LOGIN:
         case REQUEST_LOGIN:

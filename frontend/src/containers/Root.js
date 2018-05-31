@@ -3,7 +3,14 @@ import { Provider } from 'react-redux'
 import configureStore from '../configureStore'
 import AsyncApp from './AsyncApp'
 
-const store = configureStore();
+import { loadState, saveState } from '../localStorage'
+
+const persistedState = loadState()
+const store = configureStore(persistedState);
+
+store.subscribe(() => {
+    saveState(store.getState())
+})
 
 export default class Root extends Component {
     render() {

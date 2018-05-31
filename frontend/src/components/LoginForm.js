@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, Redirect} from 'react-router-dom';
 import {getCSRFToken} from '../app/auth'
 
 
@@ -36,7 +36,7 @@ class LocalForm extends Component {
         const username = this.state.username;
         const pass = this.state.password;
         this.props.dispatch(invalidateLogin());
-        this.props.dispatch(fetchLogin(username, pass, '/dashboard/', this.props.history));
+        this.props.dispatch(fetchLogin(username, pass))
 
     };
 
@@ -48,6 +48,7 @@ class LocalForm extends Component {
 
     render() {
         return (<div className="text-center">
+                {this.props.loggedIn && <Redirect to='/dashboard/' />}
                 <u><h3>Login</h3></u>
                 <Form>
                     <DjangoCSRFToken/>
@@ -78,7 +79,7 @@ class LocalForm extends Component {
     }
 }
 function mapStateToProps(state){
-    const {loggedIn} = state['isLoggedIn'];
+    const {loggedIn} = state.isLoggedIn.isLoggedIn;
     return {loggedIn}
 }
 LocalForm = connect(mapStateToProps)(LocalForm);

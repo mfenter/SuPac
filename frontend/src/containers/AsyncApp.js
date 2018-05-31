@@ -30,7 +30,7 @@ class AsyncApp extends Component {
                     <Route exact path='/inventory/celestial_body/:name' render={ () => <InventoryIndex /> } />
                     <Route exact path='/inventory/celestial_body/plots/:name' render={ () => <PlotView /> } />
                     <Route path='/merchant/' render={ () => <PaymentForm /> } />
-                    <PrivateRoute path='/dashboard/' component={Dashboard} />
+                    <Route path='/dashboard/' render={ () => <Dashboard /> } />
                     <Route path='/login/' render={ () => <LoginForm/> } />
                     <Footer/>
                 </div>
