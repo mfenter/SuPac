@@ -6,6 +6,9 @@ import {Navbar, Nav, NavItem, Grid, Glyphicon } from 'react-bootstrap';
 import {loggedIn, siteLogout} from '../app/auth';
 import logo from '../logo.svg';
 
+import { connect } from 'react-redux'
+import { logout } from '../actions'
+
 class Header extends Component {
     constructor() {
         super();
@@ -31,11 +34,10 @@ class Header extends Component {
         // console.log(this.state.quantity)
     }
 
-    _siteLogout(what){
-        console.log("this.logout called")
-        siteLogout();
-        what.props.history.push('/login/');
-        console.log("login pushed on history")
+    _siteLogout = (e) => {
+        e.preventDefault()
+        this.props.dispatch(logout())
+        this.props.history.push('/login/')
     }
 
     render() {
@@ -59,12 +61,12 @@ class Header extends Component {
                                 </NavItem>
                             </Nav>
                             <Nav bsStyle="pills" pullRight>
-                            {(loggedIn()
+                            {(this.props.loggedIn
                                     ?   ([<NavItem eventKey={1} href="/cart/">
                                             {this.state.quantity} <Glyphicon glyph="shopping-cart"/>
                                         </NavItem>,
                                         <NavItem>
-                                            <a onClick={() => this._siteLogout(this)}>logout</a>
+                                            <a onClick={this._siteLogout}>logout</a>
                                         </NavItem>]
                                         )
 
@@ -80,5 +82,12 @@ class Header extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    const {loggedIn} = state.isLoggedIn.isLoggedIn;
+    return {loggedIn}
+}
+
+Header = connect(mapStateToProps)(Header)
 
 export default withRouter(Header)
