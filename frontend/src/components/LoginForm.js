@@ -36,7 +36,8 @@ class LocalForm extends Component {
         const username = this.state.username;
         const pass = this.state.password;
         this.props.dispatch(invalidateLogin());
-        this.props.dispatch(fetchLogin(username, pass))
+        this.props.dispatch(fetchLogin(username, pass, '/dashboard/', this.props.history));
+
     };
 
     onChange = (e) => {
@@ -76,8 +77,11 @@ class LocalForm extends Component {
         )
     }
 }
-
-LocalForm = connect()(LocalForm);
+function mapStateToProps(state){
+    const {loggedIn} = state['isLoggedIn'];
+    return {loggedIn}
+}
+LocalForm = connect(mapStateToProps)(LocalForm);
 LocalForm = withRouter(LocalForm);
 
 class CenterView extends Component {

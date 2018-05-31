@@ -24,14 +24,16 @@ function receiveLogin(json) {
     }
 }
 
-export function fetchLogin(username, password) {
+export function fetchLogin(username, password, dest, hist) {
     return dispatch => {
-        dispatch(requestLogin())
-        return axios.post('/api/login/', {
-            username,
-            password
-        })
-            .then(response => response.data)
+        dispatch(requestLogin());
+        return axios.all([axios.post("/api/login/", {username, password})])
+            .then(response => {
+                if (response[0].data.status === 'true'){
+                    hist.push(dest)
+                }
+                return response[0].data
+            })
             .then(json => dispatch(receiveLogin(json)))
     }
 }
