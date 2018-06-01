@@ -21,8 +21,8 @@ function isLoggedIn(
             let clone = Object.assign({}, state, {
                 loggedIn: false
             })
-            delete clone['username']
-            delete clone['fullName']
+            let deleteKeys = ['username', 'fullName', 'lastUpdated']
+            deleteKeys.forEach(e => delete clone[e])
             return clone
         case INVALIDATE_LOGIN:
             return Object.assign({}, state, {
