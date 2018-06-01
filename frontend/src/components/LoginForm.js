@@ -79,7 +79,7 @@ class LocalForm extends Component {
     }
 }
 function mapStateToProps(state){
-    const {loggedIn} = state.isLoggedIn.isLoggedIn;
+    const {loggedIn} = state.isLoggedIn;
     return {loggedIn}
 }
 LocalForm = connect(mapStateToProps)(LocalForm);

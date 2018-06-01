@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {Navbar, Nav, NavItem, Grid, Glyphicon } from 'react-bootstrap';
 // TODO: ADD LINK FROM REACT ROUTER TO NAVITEMS
-
-import {loggedIn, siteLogout} from '../app/auth';
 import logo from '../logo.svg';
 
 import { connect } from 'react-redux'
@@ -84,7 +82,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state){
-    const {loggedIn} = state.isLoggedIn.isLoggedIn;
+    const {loggedIn} = state.isLoggedIn;
     return {loggedIn}
 }
 

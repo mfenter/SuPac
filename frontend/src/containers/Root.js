@@ -6,7 +6,7 @@ import AsyncApp from './AsyncApp'
 import { loadState, saveState } from '../localStorage'
 
 const persistedState = loadState()
-const store = configureStore(persistedState);
+const store = configureStore(persistedState)
 
 store.subscribe(() => {
     saveState(store.getState())
