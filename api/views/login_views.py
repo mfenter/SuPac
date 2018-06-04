@@ -8,7 +8,7 @@ from rest_framework.urls import logout
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .serializers import UserSerializer
+from ..serializers.user_serializer import UserSerializer
 
 User = get_user_model()
 

@@ -10,6 +10,7 @@ class CelestialBody(models.Model):
     """Identifies celestial bodies"""
     name = models.CharField(max_length=26)
     parent_body = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+    image_name = models.CharField(max_length=64)
 
 
 class Plot(models.Model):
