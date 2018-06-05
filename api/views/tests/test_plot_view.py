@@ -69,7 +69,7 @@ class PlotDetailTests(APITestCase):
 
     def test_no_such_plot(self):
         """Should return a 404 if there is no such a plot"""
-        url = '/api/get-plot-detail/foo/bar/'
+        url = '/api/get-plot-detail/{}/bar/'.format(self.body.name)
         result = self.client.get(url)
 
         self.assertEqual(result.status_code, 404)
