@@ -3,15 +3,12 @@ import {withRouter, Redirect} from "react-router-dom";
 import { connect } from 'react-redux'
 
 class Dashboard extends Component {
-    constructor() {
-        super()
-    }
-
     render(){
         return (
             <div>
                 {!this.props.loggedIn && <Redirect to='/login/'/>}
-                <h3>Hello Dashboard</h3>
+                {this.props.isFetchingBody && <h2>Loading...</h2>}
+                {!this.props.isFetchingBody && <h3>Hello Dashboard</h3>}
             </div>
         )
     }
@@ -19,7 +16,8 @@ class Dashboard extends Component {
 
 function mapStateToProps(state){
     const {loggedIn} = state.isLoggedIn;
-    return {loggedIn}
+    const {isFetchingBody} = state.currentBody;
+    return {loggedIn, isFetchingBody}
 }
 
 Dashboard = connect(mapStateToProps)(Dashboard)

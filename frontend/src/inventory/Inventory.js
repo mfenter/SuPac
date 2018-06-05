@@ -173,14 +173,3 @@ class InventoryIndex extends Component {
 }
 
 export {InventoryIndex, PlotView}
-
-
-//
-// {/*<div>*/
-// }
-// {/*{this._bodyListRender()}*/
-// }
-// {/*{this._plotListRender()}*/
-// }
-// {/*</div>*/
-// }

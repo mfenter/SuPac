@@ -1,14 +1,11 @@
-import {combineReducers} from 'redux'
-
 import {
     LOGOUT,
     INVALIDATE_LOGIN,
     RECEIVE_LOGIN,
     REQUEST_LOGIN
-} from "./actions";
+} from "../actions";
 
-
-function isLoggedIn(
+export default function isLoggedIn(
     state = {
         isFetching: false,
         didInvalidate: false,
@@ -46,9 +43,3 @@ function isLoggedIn(
             return state
     }
 }
-
-const rootReducer = combineReducers({
-    isLoggedIn
-})
-
-export default rootReducer

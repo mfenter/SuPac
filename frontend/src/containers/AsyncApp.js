@@ -9,7 +9,6 @@ import Home from '../components/Home'
 import Cart from '../cart/Cart'
 import {InventoryIndex, PlotView} from '../inventory/Inventory'
 import PaymentForm from '../merchant/PaymentForm'
-import PrivateRoute from '../components/PrivateRoute'
 import Dashboard from '../components/Dashboard'
 import LoginForm from '../components/LoginForm'
 
@@ -22,7 +21,6 @@ class AsyncApp extends Component {
         return(
             <Router>
                 <div>
-                    {console.log(this.props)}
                     <Header/>
                     <Route exact path='/' render={ () => <Home /> } />
                     <Route path='/cart/' render={ () => <Cart /> } />

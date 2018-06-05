@@ -1,9 +1,29 @@
 import axios from 'axios'
 
+
+/*
+* IS LOGGED IN ACTIONS
+* */
+
 export const INVALIDATE_LOGIN = 'INVALIDATE_LOGIN'
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 export const LOGOUT = 'LOGOUT'
+
+
+/*
+* CELESTIAL BODY ACTIONS
+* */
+
+export const REQUEST_BODY_DATA = 'REQUEST_BODY_DATA'
+export const RECEIVE_BODY_DATA = 'RECEIVE_BODY_DATA'
+export const BODY_ITEMS = 'BODY_ITEMS'
+export const PLOT_ITEMS = 'PLOT_ITEMS'
+
+
+/*
+* IS LOGGED IN ACTION CREATORS & HELPERS
+* */
 
 function logout() {
     return {
@@ -47,3 +67,52 @@ export function doLogout() {
     }
 }
 
+
+/*
+* CELESTIAL BODY ACTION CREATORS & HELPERS
+* */
+
+function requestBodyData() {
+    return {
+        type: REQUEST_BODY_DATA
+    }
+}
+
+function receiveBodyData(name, json) {
+    return {
+        type: RECEIVE_BODY_DATA,
+        name,
+        description: json.description,
+        image: json.image,
+        parent: json.parent
+    }
+}
+
+function plotItems(plots) {
+    return {
+        type: PLOT_ITEMS,
+        plots
+    }
+}
+
+function bodyItems(bodies) {
+    return {
+        type: BODY_ITEMS,
+        bodies
+    }
+}
+
+export function fetchBodyData(name) {
+    return dispatch => {
+        dispatch(requestBodyData())
+        return axios.all([axios.get(`/api/get-body-data/${name}`), axios.get(`/api/get-body-plots/${name}`)])
+            .then(response => {
+                return Object.assign({},response[0].data, response[1].data,)
+            })
+            .then(json => {
+                dispatch(bodyItems(json.children))
+                dispatch(plotItems(json.plots))
+                dispatch(receiveBodyData(name, json))
+            })
+    }
+}
