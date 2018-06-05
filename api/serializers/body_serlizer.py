@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from inventory.models import CelestialBody, Plot
+from inventory.models import CelestialBody
 
 
 class BodySerializer(ModelSerializer):
