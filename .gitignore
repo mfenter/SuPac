@@ -5,9 +5,8 @@
 venv/
 .DS_Store
 db.sqlite3
-inventory/migrations/
 .projectrc
-
+frontend/yarn.lock
 Github has a great boilerplate .gitignore
 
 # Byte-compiled / optimized / DLL files
