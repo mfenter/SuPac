@@ -1,10 +1,9 @@
-from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..serializers.plot_serializer import PlotSerializer
 from inventory.models import Plot, CelestialBody
+from ..serializers.plot_serializer import PlotSerializer
 
 
 class PlotView(APIView):

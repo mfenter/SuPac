@@ -2,7 +2,6 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 from factories.inventory_factories import CelestialBodyFactory, PlotFactory
-from inventory.models import Plot
 
 
 class BodyViewTests(TestCase):
