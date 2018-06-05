@@ -26,3 +26,14 @@ class UserPlotsView(LoginRequiredMixin, APIView):
         serializer = PlotSerializer(plots, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 
+
+class PlotDetailView(APIView):
+
+    def get(self, request, bodyname, geocoords, *args, **kwargs):
+
+        try:
+            plot = Plot.objects.get(parent__name__exact=bodyname, location=geocoords)
+        except Plot.DoesNotExist:
+            return Response({}, status=status.HTTP_404_NOT_FOUND, content_type="application/json")
+        serializer = PlotSerializer(plot)
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")

@@ -2,6 +2,7 @@ from rest_framework.test import APIClient, APITestCase
 
 from factories.django_factories import UserFactory
 from factories.inventory_factories import CelestialBodyFactory, PlotFactory
+from inventory.models import Plot
 
 
 class PlotViewTests(APITestCase):
@@ -17,9 +18,6 @@ class PlotViewTests(APITestCase):
 
         self.body.description = desc
         self.body.save()
-        expected = {'id': self.body.id, 'name': self.body.name, 'image_name': self.body.image_name,
-                    'description': desc, 'parent_body': None, 'children': [],
-                    'plots': '/api/get-body-plots/{}/'.format(self.body.name)}
         result = self.client.get('/api/get-body-plots/{}/'.format(self.body.name))
         outcome = result.json()
         self.assertEqual(len(outcome), 1)
@@ -52,3 +50,26 @@ class UserPlotsViewTests(APITestCase):
         self.assertEqual(len(outcome), 4)
         for o in outcome:
             self.assertEqual(o['owner'], self.user.id)
+
+
+class PlotDetailTests(APITestCase):
+
+    def setUp(self):
+        self.body = CelestialBodyFactory()
+        self.plots = PlotFactory.create_batch(4, **{'parent': self.body})
+
+    def test_get_single_plot(self):
+        """Should get the plot info for a single plot"""
+        p = Plot.objects.all().first()
+        url = '/api/get-plot-detail/{}/{}/'.format(p.parent.name, p.location)
+        result = self.client.get(url)
+        outcome = result.json()
+        self.assertEqual(outcome['location'], p.location)
+        self.assertEqual(outcome['parent'], '/api/get-body-data/{}/'.format(self.body.name))
+
+    def test_no_such_plot(self):
+        """Should return a 404 if there is no such a plot"""
+        url = '/api/get-plot-detail/foo/bar/'
+        result = self.client.get(url)
+
+        self.assertEqual(result.status_code, 404)
