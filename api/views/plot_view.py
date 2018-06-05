@@ -13,3 +13,13 @@ class PlotView(APIView):
         plots = Plot.objects.filter(parent=body)
         serializer = PlotSerializer(plots, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+
+
+class UserPlotsView(APIView):
+
+    def get(self, request, *args, **kwargs):
+
+        plots = Plot.objects.filter(owner=request.user)
+        serializer = PlotSerializer(plots, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+

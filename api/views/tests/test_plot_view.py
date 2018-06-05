@@ -1,10 +1,10 @@
-from django.test import TestCase
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APITestCase
 
+from factories.django_factories import UserFactory
 from factories.inventory_factories import CelestialBodyFactory, PlotFactory
 
 
-class BodyViewTests(TestCase):
+class PlotViewTests(APITestCase):
 
     def setUp(self):
         self.body = CelestialBodyFactory()
@@ -24,3 +24,24 @@ class BodyViewTests(TestCase):
         outcome = result.json()
         self.assertEqual(len(outcome), 1)
         self.assertEqual(outcome[0]['name'], plot.name)
+
+
+class UserPlotsViewTests(APITestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+        self.creds = {'username': 'plotsuser', 'password': 'pass'}
+        self.user = UserFactory(**self.creds)
+        self.body = CelestialBodyFactory()
+        self.plots = PlotFactory.create_batch(4, **{'parent': self.body, 'owner': self.user})
+        PlotFactory.create_batch(4, **{'parent': self.body})
+
+    def test_get_only_user_plots(self):
+        """It should only return the plots for our user"""
+
+        logged_in = self.client.login(**self.creds)
+        result = self.client.get('/api/get-user-plots/')
+        outcome = result.json()
+        self.assertEqual(len(outcome), 4)
+        for o in outcome:
+            self.assertEqual(o['owner'], self.user.id)
