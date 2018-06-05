@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,7 +16,9 @@ class PlotView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 
 
-class UserPlotsView(APIView):
+class UserPlotsView(LoginRequiredMixin, APIView):
+
+    login_url = '/login/'
 
     def get(self, request, *args, **kwargs):
 

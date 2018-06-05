@@ -36,10 +36,17 @@ class UserPlotsViewTests(APITestCase):
         self.plots = PlotFactory.create_batch(4, **{'parent': self.body, 'owner': self.user})
         PlotFactory.create_batch(4, **{'parent': self.body})
 
+    def test_redirect_if_not_loggedin(self):
+        """It should redirect to 'login' if the user is not logged in"""
+
+        result = self.client.get('/api/get-user-plots/')
+        self.assertEqual(result.status_code, 302)
+        self.assertEqual(result.url, "/login/?next=/api/get-user-plots/")
+
     def test_get_only_user_plots(self):
         """It should only return the plots for our user"""
 
-        logged_in = self.client.login(**self.creds)
+        self.client.login(**self.creds)
         result = self.client.get('/api/get-user-plots/')
         outcome = result.json()
         self.assertEqual(len(outcome), 4)
