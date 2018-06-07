@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
+import {Button, Col, Form, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import {Link, withRouter, Redirect} from 'react-router-dom';
 import {getCSRFToken} from '../app/auth'

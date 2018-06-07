@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {Grid, Row, Media} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import './inventory.css'
 
 import thumbnail from '../logo.svg';
+import {withRouter} from "react-router-dom";
+import {fetchBodyData} from "../actions";
 
 class PlotView extends Component {
     constructor() {
@@ -63,7 +66,6 @@ class PlotView extends Component {
     };
 
     render() {
-        console.log(this.props);
         let plot = this.props;
         let plotName = plot.name;
 
@@ -138,10 +140,14 @@ class BodyList extends Component {
 
 class InventoryIndex extends Component {
 
-    _bodyListRender() {
-        return (
 
-            this.props.body_list.map(function (body) {
+    componentWillMount(){
+        fetchBodyData('sol')
+    }
+    _bodyListRender() {
+
+        return (
+            this.props.bodyChildren.map(function (body) {
                     return <BodyList body={body}/>
                 }
             )
@@ -152,7 +158,7 @@ class InventoryIndex extends Component {
     _plotListRender() {
         return (
 
-            this.props.plot_list.map(function (plot) {
+            this.props.plotItems.map(function (plot) {
                     return <PlotList plot={plot}/>
                 }
             )
@@ -160,7 +166,6 @@ class InventoryIndex extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Grid>
                 <Row>
@@ -171,5 +176,11 @@ class InventoryIndex extends Component {
         )
     };
 }
+
+function mapStateToProps(state){
+    return state
+}
+InventoryIndex = connect(mapStateToProps)(InventoryIndex);
+InventoryIndex = withRouter(InventoryIndex);
 
 export {InventoryIndex, PlotView}

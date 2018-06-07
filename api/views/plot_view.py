@@ -10,8 +10,11 @@ from ..serializers.plot_serializer import PlotSerializer
 class PlotView(APIView):
 
     def get(self, request, bodyname, *args, **kwargs):
-        body = CelestialBody.objects.get(name=bodyname)
-        plots = Plot.objects.filter(parent=body)
+
+        try:
+            plots = Plot.objects.filter(parent__name__iexact=bodyname)
+        except Plot.DoesNotExist:
+            return Response({'message': 'no plots'}, status=status.HTTP_404_NOT_FOUND)
         serializer = PlotSerializer(plots, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 

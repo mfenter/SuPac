@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from inventory.models import CelestialBody
+from inventory.models import CelestialBody, Plot
 
 
 class BodySerializer(ModelSerializer):
@@ -22,5 +22,8 @@ class BodySerializer(ModelSerializer):
         if default_data['parent_body'] is not None:
             p = CelestialBody.objects.get(id=default_data['parent_body']).serializable_value('name')
             default_data['parent_body'] = '/api/get-body-data/{}/'.format(p)
-        default_data['plots'] = '/api/get-body-plots/{}/'.format(instance.name)
+        if Plot.objects.filter(parent=instance).count():
+            default_data['plots'] = '/api/get-body-plots/{}/'.format(instance.name)
+        else:
+            default_data['plots'] = ''
         return default_data

@@ -17,7 +17,7 @@ export const LOGOUT = 'LOGOUT'
 
 export const REQUEST_BODY_DATA = 'REQUEST_BODY_DATA'
 export const RECEIVE_BODY_DATA = 'RECEIVE_BODY_DATA'
-export const BODY_ITEMS = 'BODY_ITEMS'
+export const BODY_CHILDREN = 'BODY_CHILDREN'
 export const PLOT_ITEMS = 'PLOT_ITEMS'
 
 
@@ -95,24 +95,27 @@ function plotItems(plots) {
     }
 }
 
-function bodyItems(bodies) {
+function bodyChildren(children) {
     return {
-        type: BODY_ITEMS,
-        bodies
+        type: BODY_CHILDREN,
+        children
     }
 }
 
 export function fetchBodyData(name) {
     return dispatch => {
-        dispatch(requestBodyData())
-        return axios.all([axios.get(`/api/get-body-data/${name}`), axios.get(`/api/get-body-plots/${name}`)])
+        dispatch(requestBodyData());
+        return axios.all([axios.get(`/api/get-body-data/${name}/`)])
             .then(response => {
                 return Object.assign({},response[0].data, response[1].data,)
+
             })
             .then(json => {
-                dispatch(bodyItems(json.children))
-                dispatch(plotItems(json.plots))
+                dispatch(bodyChildren(json.children));
+                dispatch(plotItems(json.plots));
                 dispatch(receiveBodyData(name, json))
             })
+            .catch(response => {console.log(response)})
     }
 }
+
