@@ -142,10 +142,9 @@ class InventoryIndex extends Component {
 
 
     componentWillMount(){
-        fetchBodyData('sol')
+        fetchBodyData(this.props.body)
     }
     _bodyListRender() {
-
         return (
             this.props.bodyChildren.map(function (body) {
                     return <BodyList body={body}/>
@@ -170,7 +169,6 @@ class InventoryIndex extends Component {
             <Grid>
                 <Row>
                     {this._bodyListRender()}
-                    {this._plotListRender()}
                 </Row>
             </Grid>
         )

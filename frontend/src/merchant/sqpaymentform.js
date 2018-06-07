@@ -203,6 +203,8 @@ function createPaymentForm() {
                         case 'postalCodeChanged':
                             /* HANDLE AS DESIRED */
                             break;
+                        default:
+                            break;
                     }
                 },
 

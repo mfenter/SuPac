@@ -13,9 +13,6 @@ import Dashboard from '../components/Dashboard'
 import LoginForm from '../components/LoginForm'
 
 class AsyncApp extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return(
@@ -24,8 +21,8 @@ class AsyncApp extends Component {
                     <Header/>
                     <Route exact path='/' render={ () => <Home /> } />
                     <Route path='/cart/' render={ () => <Cart /> } />
-                    <Route exact path='/inventory/' render={ () => <InventoryIndex /> } />
-                    <Route exact path='/inventory/celestial_body/:name' render={ () => <InventoryIndex /> } />
+                    <Route exact path='/inventory/' render={ () => <InventoryIndex body='sol' /> } />
+                    <Route exact path='/inventory/:bodyname/' render={ ({ match }) => <InventoryIndex body={ match.params.bodyname }/> } />
                     <Route exact path='/inventory/celestial_body/plots/:name' render={ () => <PlotView /> } />
                     <Route path='/merchant/' render={ () => <PaymentForm /> } />
                     <Route path='/dashboard/' render={ () => <Dashboard /> } />
@@ -38,7 +35,7 @@ class AsyncApp extends Component {
 }
 
 AsyncApp.propTypes = {
-    isLoggedIn: PropTypes.string.isRequired,
+    isLoggedIn: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
 }
 

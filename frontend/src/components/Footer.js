@@ -6,10 +6,7 @@ import { Grid } from 'react-bootstrap';
 import './Footer.css';
 
 class Footer extends Component {
-    constructor() {
-        super();
 
-    }
     render(){
 
         let links = ['contact', 'forum', 'affiliate', 'about', 'site-map', 'social',
@@ -21,7 +18,7 @@ class Footer extends Component {
                         let toLink = `/${ link }/`;
                         return (
                             <Link className={(
-                                idx == links.length - 1
+                                idx === links.length - 1
                                 ? 'footer-link-padding'
                                 : 'footer-link-padding footer-link-border'
                             )}

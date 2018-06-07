@@ -10,6 +10,6 @@ import Root from './containers/Root';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<Root/>,
-    window.react_mount,
+    document.getElementById('root'),
 );
 registerServiceWorker();
