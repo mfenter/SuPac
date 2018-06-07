@@ -107,12 +107,10 @@ export function fetchBodyData(name) {
         dispatch(requestBodyData());
         return axios.all([axios.get(`/api/get-body-data/${name}/`)])
             .then(response => {
-                return Object.assign({},response[0].data, response[1].data,)
-
+                return response[0].data
             })
             .then(json => {
                 dispatch(bodyChildren(json.children));
-                dispatch(plotItems(json.plots));
                 dispatch(receiveBodyData(name, json))
             })
             .catch(response => {console.log(response)})
