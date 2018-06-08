@@ -72,13 +72,11 @@ export function doLogout() {
 * CELESTIAL BODY ACTION CREATORS & HELPERS
 * */
 
-/*
 function requestBodyData() {
     return {
         type: REQUEST_BODY_DATA
     }
 }
-*/
 
 function receiveBodyData(name, json) {
     return {
@@ -107,9 +105,9 @@ function bodyChildren(children) {
 export function fetchBodyData(name) {
 
     return dispatch => {
-        return axios.all([axios.get(`/api/get-body-data/${name}/`)])
+        dispatch(requestBodyData());
+        return axios.all([axios.get(`http://localhost:8000/api/get-body-data/${name}/`)])
             .then(response => {
-                console.log(response[0].data);
                 return response[0].data
             })
             .then(json => {

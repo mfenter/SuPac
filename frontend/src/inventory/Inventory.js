@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {Grid, Row, Media} from 'react-bootstrap';
+import {Grid, Media, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import './inventory.css'
 
 import thumbnail from '../logo.svg';
 import {withRouter} from "react-router-dom";
-import {fetchBodyData} from "../actions";
+
+import * as axios from "axios";
+
 
 class PlotView extends Component {
     constructor() {
@@ -112,9 +114,8 @@ class PlotList extends Component {
 class BodyList extends Component {
     render() {
         let body = this.props.body;
-        let href = `/inventory/celestial_body/${body}`;
+        let href = `/inventory/celestial_body/${body.name}`;
 
-        let imageName = `${body}.jpeg`;
         // let image = import(imageName).then(module => {
         //     console.log(module);
         // });
@@ -122,7 +123,8 @@ class BodyList extends Component {
         return (
             <Media className="media-container">
                 <Media.Left align="middle">
-                    <img className="list-img" width={64} height={64} src={require(`../images/body/${imageName}`)} alt="thumbnail"/>
+                    <img className="list-img" width={64} height={64} src='http://localhost:8000/'
+                         alt="thumbnail"/>
                 </Media.Left>
                 <Media.Body>
                     <Media.Heading><a href={href}>{body}</a></Media.Heading>
@@ -140,18 +142,34 @@ class BodyList extends Component {
 
 class InventoryIndex extends Component {
 
+    constructor(props) {
+        super(props);
 
-    componentWillMount(){
-        fetchBodyData(this.props.body)
+        this.state = {
+            bodyData: []
+        };
     }
-    _bodyListRender() {
-        return (
-            this.props.bodyChildren.map(function (body) {
-                    return <BodyList body={body}/>
-                }
-            )
 
-        )
+    componentWillMount() {
+        axios.all([axios.get(`http://localhost:8000/api/get-body-data/${this.props.body}/`)])
+            .then(response => {
+                return response[0].data
+            })
+            .then(json => {
+                console.log(json);
+
+            })
+
+    }
+
+    _bodyListRender() {
+
+        console.log(this.state);
+        console.log("state ^^^^")
+        console.log(this.props);
+        if (this.state !== null) {
+            return (<BodyList body={this.state.bodyData}/>)
+        }
     }
 
     _plotListRender() {
@@ -175,9 +193,10 @@ class InventoryIndex extends Component {
     };
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return state
 }
+
 InventoryIndex = connect(mapStateToProps)(InventoryIndex);
 InventoryIndex = withRouter(InventoryIndex);
 
