@@ -9,7 +9,7 @@ class TwitterTimeLine extends Component {
     render() {
 
         return (
-            <div className="col-lg-1">
+            <div>
                 <Follow username={TWITTER_SCREEN_NAME}/>
                 <Hashtag className="float-right" hashtag="FFReality" />
                 <Timeline
