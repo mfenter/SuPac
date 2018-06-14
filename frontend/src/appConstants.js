@@ -1,8 +1,8 @@
 
 
-const TWITTER_SCREEN_NAME = 'POTUS';
+const TWITTER_SCREEN_NAME = 'FinalRealty';
 const TWITTER_HEIGHT = '700';
-const TWITTER_USERNAME = 'President';
+const TWITTER_USERNAME = 'Final Frontier Reality';
 const TWITTER_WIDTH = '450';
 
 
