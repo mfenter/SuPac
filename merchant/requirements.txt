@@ -1,5 +1,5 @@
 certifi==2018.4.16
-Django==2.0.4
+Django==2.2.13
 django-crispy-forms==1.7.2
 django-registration-redux==2.4
 python-dateutil==2.7.2
