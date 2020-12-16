@@ -1,0 +1,9 @@
+
+
+const TWITTER_SCREEN_NAME = 'FinalRealty';
+const TWITTER_HEIGHT = '700';
+const TWITTER_USERNAME = 'Final Frontier Reality';
+const TWITTER_WIDTH = '450';
+
+
+export {TWITTER_SCREEN_NAME, TWITTER_WIDTH, TWITTER_HEIGHT, TWITTER_USERNAME}
